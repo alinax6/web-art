@@ -130,6 +130,20 @@
     animation: cloudDrift 90s linear infinite;
 }
 
+.moon {
+    position: relative;
+    left: 10%; 
+    top: 40%; 
+    width: 80px;
+    transform: scale(1); 
+    transition: transform 0.5s ease-in-out, width 0.5s ease-in-out; 
+  }
+
+.moon:hover {
+    transform: translateX(20px) scale(0.8); 
+    width: 50px; 
+}
+
 .bird2 {
     position: absolute;
     top: 70vh;
