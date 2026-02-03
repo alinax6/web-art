@@ -74,6 +74,25 @@
     }
 }
 
+@keyframes cloudDrift {
+    from {
+        transform: translateX(-15vw);
+    }
+    to {
+        transform: translateX(115vw);
+    }
+}
+
+@keyframes cloudFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+
 #star {
     position: fixed;
     top: 50%;
@@ -101,6 +120,14 @@
     width: clamp(50px, 10vw, 100px);
     animation: flyLeft 12s linear infinite;
     animation-delay: 0s;
+}
+
+.clouds {
+    position: absolute;
+    top: 20%;
+    width: clamp(300px, 40vw, 800px);
+    opacity: 0.5;
+    animation: cloudDrift 90s linear infinite;
 }
 
 .bird2 {
@@ -141,4 +168,10 @@
     width: clamp(50px, 10vw, 100px);
     animation: flyLeft 12s linear infinite;
     animation-delay: 5s;
+}
+
+@media (max-width: 768px) {
+    .scene {
+        background-position: center top;
+    }
 }
