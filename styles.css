@@ -1,0 +1,120 @@
+.sceneContainer {
+    height: 100vh;
+    width: 100%;
+}
+
+.scene {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    color: white;
+}
+
+#scene1 {
+    background-image: url("images/pinkclouds.jpg");
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+}
+
+#scene2 { 
+    background-image: url("images/sky.avif");
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+}
+
+#scene3 { 
+    background-image: url("images/greenclouds.jpg");
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+}
+
+#scene4 { 
+    background-image: url("images/purplesclouds.webp");
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+}
+
+#scene5 { 
+    background-image: url("images/orangeclouds.jpg");
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+}
+
+#scene6 { 
+    background-image: url("images/cloud.jpg");
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+}
+
+#star {
+    position: fixed;
+    top: 50%;
+    left: 50%;           
+    width: 250px;
+    transform: translate(-50%, -50%); 
+    z-index: 999;
+}
+
+
+.bird {
+    position: absolute;
+    left: 10%;
+    top: 20%;
+    transform: translateY(-500%);
+    width: 100px;
+    z-index: 10;
+}
+
+.stars {
+    position: absolute;
+    left: 70%;
+    top: 20%;
+    transform: translateY(-130%);
+    width: 300px;
+    z-index: 10;
+}
+
+.bird2 {
+    position: absolute;
+    right: 10%;
+    top: 20%;
+    transform: translateY(200%);
+    width: 80px;
+    z-index: 10;
+}
+
+.bird3 {
+    position: absolute;
+    right: 30%;
+    top: 20%;
+    transform: translateY(1000%);
+    width: 80px;
+    z-index: 10;
+}
+
+.bird4 {
+    position: absolute;
+    left: 10%;
+    top: 50%;
+    transform: translateY(2400%);
+    width: 80px;
+    z-index: 10;
+}
+
+.bird5 {
+    position: absolute;
+    right: 10%;
+    top: 50%;
+    transform: translateY(3000%);
+    width: 80px;
+    z-index: 10;
+}
+
+.bird6 {
+    position: absolute;
+    left: 23%;
+    top: 50%;
+    transform: translateY(3600%);
+    width: 80px;
+    z-index: 10;
+}
