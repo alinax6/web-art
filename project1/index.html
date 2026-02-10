@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <title>Inbox as Memory</title>
+        <link rel="stylesheet" href="includes/styles.css">
+    </head>
+
+    <body>
+        <div class="app">
+            <div class="sidebar">
+                <h3>Folders</h3>
+                <div class="folder">Inbox</div>
+                <div class="folder">Drafts</div>
+                <div class="folder">Archive</div>
+                <div class="folder">Deleted</div>
+            </div>
+
+            <div class="inbox">
+                <div class="envelopes">
+                    <a href="#mail1" class="envelope1"></a>
+                    <a href="#mail2" class="envelope2"></a>
+                    <a href="#mail3" class="envelope3"></a>
+                </div>
+            </div>
+        </div>
+
+        <div id="mail1" class="mail">
+            <div class="mail-window">
+                <a href="#" class="close">close</a>
+                <div class="glitch" data-text="Re: Assignments Due?">
+                    Re: Assignments Due
+                </div>
+                <p>Reminder: You have 50 assignments due today.</p>
+            </div>
+        </div>
+
+        <div id="mail2" class="mail">
+            <div class="mail-window">
+                <a href="#" class="close">close</a>
+                <div class="glitch" data-text="Draft - unsent?">
+                    Draft - unsent
+                </div>
+                <p>This message was never meant to arrive.<br>It lives between
+                folders, between words. Every inbox has a ghost.</p>
+            </div>
+        </div>
+
+        <div id="mail3" class="mail">
+            <div class="mail-window">
+                <a href="#" class="close">close</a>
+                <div class="glitch" data-text="FW: memory corrupted">
+                    FW: memory corrupted
+                </div>
+                <p>The attachment will not open anymore. Maybe it was never a file.
+                    Maybe it was just time.
+                </p>
+            </div>
+        </div>
+    </body>
+</html>
