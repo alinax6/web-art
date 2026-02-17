@@ -4,21 +4,32 @@
         <link rel="stylesheet" href="includes/styles.css">
     </head>
 
-    <body>
-        <div class="app">
+    <body class="inbox-page">
+        <div class="layout">
             <div class="sidebar">
                 <h3>Folders</h3>
-                <div class="folder">Inbox</div>
-                <div class="folder">Drafts</div>
-                <div class="folder">Archive</div>
-                <div class="folder">Deleted</div>
+                <a href="index.html" class="folder">Inbox</a>
+                <a href="sent.html" class="folder">Sent</a>
+                <a href="archive.html" class="folder">Archive</a>
+                <a href="delete.html" class="folder">Deleted</a>
             </div>
 
-            <div class="inbox">
+            <div class="content-area">
+                <h1>Inbox</h1>
+                <p>You have unread emails</p>
+                <a href="sent.html" class="folder"><b>+ Compose New Email</b></a>
+
                 <div class="envelopes">
-                    <a href="#mail1" class="envelope1"></a>
-                    <a href="#mail2" class="envelope2"></a>
-                    <a href="#mail3" class="envelope3"></a>
+                    <a href="#mail1" class="envelope envelope1"></a>
+                    <a href="#mail2" class="envelope envelope2"></a>
+                    <a href="#mail3" class="envelope envelope3"></a>
+                    <a href="#mail4" class="envelope envelope4"></a>
+                    <a href="#mail5" class="envelope envelope5"></a>
+                    <a href="#mail6" class="envelope envelope6"></a>
+                    <a href="#mail7" class="envelope envelope7"></a>
+                    <a href="#mail8" class="envelope envelope8"></a>
+                    <a href="#mail9" class="envelope envelope9"></a>
+                    <a href="#mail10" class="envelope envelope10"></a>
                 </div>
             </div>
         </div>
@@ -26,9 +37,7 @@
         <div id="mail1" class="mail">
             <div class="mail-window">
                 <a href="#" class="close">close</a>
-                <div class="glitch" data-text="Re: Assignments Due?">
-                    Re: Assignments Due
-                </div>
+                <h2>Re: Assignments Due</h2>
                 <p>Reminder: You have 50 assignments due today.</p>
             </div>
         </div>
@@ -36,23 +45,73 @@
         <div id="mail2" class="mail">
             <div class="mail-window">
                 <a href="#" class="close">close</a>
-                <div class="glitch" data-text="Draft - unsent?">
-                    Draft - unsent
-                </div>
-                <p>This message was never meant to arrive.<br>It lives between
-                folders, between words. Every inbox has a ghost.</p>
+                <h2>Subject: Meeting Reminder</h2>
+                <p>Don't forget our team meeting tomorrow at 10:00 AM. Please 
+                    prepare your updates.</p>
             </div>
         </div>
 
         <div id="mail3" class="mail">
             <div class="mail-window">
                 <a href="#" class="close">close</a>
-                <div class="glitch" data-text="FW: memory corrupted">
-                    FW: memory corrupted
-                </div>
-                <p>The attachment will not open anymore. Maybe it was never a file.
-                    Maybe it was just time.
-                </p>
+                <h2>Subject: Assignment Feedback</h2>
+                <p>Your essay has been reviewed. Please check the comments and revise by Thursday.</p>
+            </div>
+        </div>
+
+        <div id="mail4" class="mail">
+            <div class="mail-window">
+                <a href="#" class="close">close</a>
+                <h2>Subject: Project Deadline Extension</h2>
+                <p>The client has approved a two-day extension. Updated deliverables are due Monday.</p>
+            </div>
+        </div>
+
+        <div id="mail5" class="mail">
+            <div class="mail-window">
+                <a href="#" class="close">close</a>
+                <h2>Subject: Office Maintenance Notice</h2>
+                <p>The office will be closed for maintenance this Wednesday. Plan accordingly.</p>
+            </div>
+        </div>
+
+        <div id="mail6" class="mail">
+            <div class="mail-window">
+                <a href="#" class="close">close</a>
+                <h2>Subject: Class Cancellation</h2>
+                <p>Today's lecture is canceled due to unforeseen circumstances.</p>
+            </div>
+        </div>
+
+        <div id="mail7" class="mail">
+            <div class="mail-window">
+                <a href="#" class="close">close</a>
+                <h2>Subject: Monthly Report Submission</h2>
+                <p>Please submit your monthly report by Monday afternoon.</p>
+            </div>
+        </div>
+
+        <div id="mail8" class="mail">
+            <div class="mail-window">
+                <a href="#" class="close">close</a>
+                <h2>Subject: Password Reset</h2>
+                <p>Your password has been successfully reset. Let us know if you did not request this.</p>
+            </div>
+        </div>
+
+        <div id="mail9" class="mail">
+            <div class="mail-window">
+                <a href="#" class="close">close</a>
+                <h2>Subject: Lost & Found</h2>
+                <p>I found your bag in the cafe. When can I return it to you?</p>
+            </div>
+        </div>
+
+        <div id="mail10" class="mail">
+            <div class="mail-window">
+                <a href="#" class="close">close</a>
+                <h2>Subject: Order #4521 Confirmed</h2>
+                <p>Thank you for your purchase! Your order will ship within 3–5 business days.</p>
             </div>
         </div>
     </body>

@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <title>Sent</title>
+        <link rel="stylesheet" href="includes/styles.css">
+    </head>
+
+    <body class="sent-page">
+        <div class="layout">
+            <div class="sidebar">
+                <h3>Folders</h3>
+                <a href="index.html" class="folder">Inbox</a>
+                <a href="sent.html" class="folder">Sent</a>
+                <a href="archive.html" class="folder">Archive</a>
+                <a href="delete.html" class="folder">Deleted</a>
+            </div>
+
+            <div class="content-area">
+                <h1 class="sent-title">
+                    <span class="plane-container">
+                        <span class="plane-text">SENT</span>
+                        <span class="smoke"></span>
+                    </span>
+                    <span class="contrail"></span>
+                </h1>
+                <a href="#" id="openCompose" class="folder"><b>+ Compose New Email</b></a>
+
+                <div class="envelopes"></div>
+        
+                <div id="composeModal" class="modal">
+                    <div class="modal-content">
+                        <span id="closeCompose" class="close">&times;</span>
+                        <h2>Compose New Email</h2>
+                        <input type="text" id="emailTitle" placeholder="Email title"><br><br>
+                        <textarea id="emailContent" placeholder="Email content"></textarea><br><br>
+                        <button id="sendEmail">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+        <script src="newMail.js"></script>
+    </body>
+</html>
