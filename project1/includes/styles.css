@@ -79,33 +79,72 @@ body {
 }
 
 @keyframes glitchTitle {
-    0%   { transform: translate(0,0) skew(0deg); }
-    10% { transform: translate(-10px, 5px) skew(8deg); }
-    20%  { transform: translate(4px, -4px) skew(-2deg); }
-    /* 30%  { transform: translate(-6px, 2px) skew(4deg); } */
-    40%  { transform: translate(3px, -3px) skew(-3deg); }
-    55% { transform: translate(8px, -6px) skew(-6deg); }
-    60%  { transform: translate(-4px, 4px) skew(-4deg); }
-    /* 70%  { transform: translate(2px, -5px) skew(3deg); } */
-    80%  { transform: translate(-3px, 3px) skew(-2deg); }
-    /* 90%  { transform: translate(4px, -2px) skew(4deg); } */
-    100% { transform: translate(0,0) skew(0deg); }
+    0% { 
+        transform: translate(0,0) skew(0deg); 
+    }
+    10% { 
+        transform: translate(-10px, 5px) skew(8deg); 
+    }
+    20% { 
+        transform: translate(4px, -4px) skew(-2deg); 
+    }
+    40% { 
+        transform: translate(3px, -3px) skew(-3deg); 
+    }
+    55% { 
+        transform: translate(8px, -6px) skew(-6deg); 
+    }
+    60% { 
+        transform: translate(-4px, 4px) skew(-4deg); 
+    }
+    80% { 
+        transform: translate(-3px, 3px) skew(-2deg)
+        ; }
+    100% { 
+        transform: translate(0,0) skew(0deg); 
+    }
 }
 
 @keyframes glitchLayer1 {
-    0%, 100%   { transform: translate(0,0) skew(0deg); }
-    20%  { transform: translate(-3px, 2px) skew(2deg); }
-    40%  { transform: translate(2px, -3px) skew(-1deg); }
-    60%  { transform: translate(-4px, 1px) skew(3deg); }
-    80%  { transform: translate(3px, -2px) skew(-2deg); }
+    0% { 
+        transform: translate(0,0) skew(0deg);
+    }
+    20% { 
+        transform: translate(-3px, 2px) skew(2deg); 
+    }
+    40% { 
+        transform: translate(2px, -3px) skew(-1deg); 
+    }
+    60% { 
+        transform: translate(-4px, 1px) skew(3deg); 
+    }
+    80% { 
+        transform: translate(3px, -2px) skew(-2deg); 
+    }
+    100% { 
+        transform: translate(0,0) skew(0deg);
+    }
 }
 
 @keyframes glitchLayer2 {
-    0%, 100%   { transform: translate(0,0) skew(0deg); }
-    20%  { transform: translate(3px, -2px) skew(-2deg); }
-    40%  { transform: translate(-2px, 3px) skew(1deg); }
-    60%  { transform: translate(4px, -1px) skew(-3deg); }
-    80%  { transform: translate(-3px, 2px) skew(2deg); }
+    0%, 100% { 
+        transform: translate(0,0) skew(0deg); 
+    }
+    20% { 
+        transform: translate(3px, -2px) skew(-2deg); 
+    }
+    40% { 
+        transform: translate(-2px, 3px) skew(1deg); 
+    }
+    60% { 
+        transform: translate(4px, -1px) skew(-3deg); 
+    }
+    80% { 
+        transform: translate(-3px, 2px) skew(2deg); 
+    }
+    100% { 
+        transform: translate(0,0) skew(0deg); 
+    }
 }
 
 
@@ -128,11 +167,21 @@ body {
 }
 
 @keyframes jitter {
-    0%   { transform: translateX(0); }
-    25%  { transform: translateX(-3px); }
-    50%  { transform: translateX(3px); }
-    75%  { transform: translateX(-2px); }
-    100% { transform: translateX(0); }
+    0% { 
+        transform: translateX(0); 
+    }
+    25% { 
+        transform: translateX(-3px);
+    }
+    50% { 
+        transform: translateX(3px); 
+    }
+    75% {
+        transform: translateX(-2px); 
+    }
+    100% { 
+        transform: translateX(0); 
+    }
 }
 
 .inbox-page .folder:first-of-type {
@@ -456,7 +505,7 @@ body {
 }
 
 @keyframes smokeFollow {
-    0%, 55% {
+    0% {
         opacity: 0;
         transform: scale(0) translateX(0) translateY(0);
     }
@@ -511,12 +560,6 @@ body {
     }
 }
 
-/* .archive-page .content-area {
-    filter: blur(1px);  
-    pointer-events: none;
-    user-select: none;  
-} */
-
 .archive-page h1.sent-title {
     font-family: 'VT323', monospace;
     font-size: 64px;
@@ -551,14 +594,30 @@ body {
 }
 
 @keyframes slowGlitch {
-    0% { transform: translate(0,0) rotate(0deg) skew(0deg); }
-    10% { transform: translate(-2px,1px) rotate(0.2deg) skew(-0.5deg); }
-    25% { transform: translate(1px,-1px) rotate(-0.3deg) skew(0.5deg); }
-    40% { transform: translate(-1px,2px) rotate(0.1deg) skew(-0.2deg); }
-    55% { transform: translate(2px,-1px) rotate(-0.2deg) skew(0.3deg); }
-    70% { transform: translate(-1px,0px) rotate(0.1deg) skew(-0.1deg); }
-    85% { transform: translate(1px,1px) rotate(0deg) skew(0deg); }
-    100% { transform: translate(0,0) rotate(0deg) skew(0deg); }
+    0% { 
+        transform: translate(0,0) rotate(0deg) skew(0deg); 
+    }
+    10% { 
+        transform: translate(-2px,1px) rotate(0.2deg) skew(-0.5deg); 
+    }
+    25% { 
+        transform: translate(1px,-1px) rotate(-0.3deg) skew(0.5deg); 
+    }
+    40% { 
+        transform: translate(-1px,2px) rotate(0.1deg) skew(-0.2deg); 
+    }
+    55% { 
+        transform: translate(2px,-1px) rotate(-0.2deg) skew(0.3deg); 
+    }
+    70% { 
+        transform: translate(-1px,0px) rotate(0.1deg) skew(-0.1deg); 
+    }
+    85% { 
+        ransform: translate(1px,1px) rotate(0deg) skew(0deg); 
+    }
+    100% { 
+        transform: translate(0,0) rotate(0deg) skew(0deg); 
+    }
 }
 
 .archive-page .content-area p {
@@ -584,8 +643,15 @@ body {
 }
 
 @keyframes pulseBlur {
-    0%, 100% { filter: blur(0.1px); }
-    50% { filter: blur(1px); }
+    0%, 100% { 
+        filter: blur(0.1px); 
+    }
+    50% { 
+        filter: blur(1px);
+    }
+    100% { 
+        filter: blur(0.1px); 
+    }
 }
 
 .archive-page .layout {
@@ -648,25 +714,57 @@ body {
 }
 
 @keyframes glitchText {
-    0% { transform: translate(0,0) skew(0deg); }
-    10% { transform: translate(-3px,2px) skew(-2deg); }
-    20% { transform: translate(2px,-1px) skew(1deg); }
-    30% { transform: translate(-1px,1px) skew(-1deg); }
-    40% { transform: translate(3px,-2px) skew(2deg); }
-    50% { transform: translate(-2px,2px) skew(-1deg); }
-    60% { transform: translate(1px,-1px) skew(1deg); }
-    70% { transform: translate(-3px,0px) skew(0deg); }
-    80% { transform: translate(2px,1px) skew(-1deg); }
-    90% { transform: translate(-1px,-2px) skew(1deg); }
-    100% { transform: translate(0,0) skew(0deg); }
+    0% { 
+        transform: translate(0,0) skew(0deg); 
+    }
+    10% { 
+        transform: translate(-3px,2px) skew(-2deg); 
+    }
+    20% { 
+        transform: translate(2px,-1px) skew(1deg); 
+    }
+    30% { 
+        transform: translate(-1px,1px) skew(-1deg); 
+    }
+    40% { 
+        transform: translate(3px,-2px) skew(2deg); 
+    }
+    50% { 
+        transform: translate(-2px,2px) skew(-1deg); 
+    }
+    60% { 
+        transform: translate(1px,-1px) skew(1deg); 
+    }
+    70% { 
+        transform: translate(-3px,0px) skew(0deg); 
+    }
+    80% {
+        transform: translate(2px,1px) skew(-1deg); 
+    }
+    90% { 
+        transform: translate(-1px,-2px) skew(1deg);
+    }
+    100% { 
+        transform: translate(0,0) skew(0deg); 
+    }
 }
 
 @keyframes glitchLayers {
-    0% { transform: translate(0,0); }
-    25% { transform: translate(-2px,2px); }
-    50% { transform: translate(2px,-2px); }
-    75% { transform: translate(-1px,1px); }
-    100% { transform: translate(0,0); }
+    0% { 
+        transform: translate(0,0); 
+    }
+    25% { 
+        transform: translate(-2px,2px); 
+    }
+    50% { 
+        transform: translate(2px,-2px); 
+    }
+    75% { 
+        transform: translate(-1px,1px); 
+    }
+    100% { 
+        transform: translate(0,0); 
+    }
 }
 
 .deleted-page p {
@@ -678,9 +776,15 @@ body {
 }
 
 @keyframes flickerText {
-    0% { opacity: 0.6; }
-    50% { opacity: 1; }
-    100% { opacity: 0.5; }
+    0% { 
+        opacity: 0.6; 
+    }
+    50% { 
+        opacity: 1; 
+    }
+    100% { 
+        opacity: 0.5; 
+    }
 }
 
 .deleted-page .envelope:hover {
@@ -704,8 +808,12 @@ body {
 }
 
 @keyframes scanlineShift {
-    0% { background-position: 0 0; }
-    100% { background-position: 0 5px; }
+    0% { 
+        background-position: 0 0; 
+    }
+    100% { 
+        background-position: 0 5px; 
+    }
 }
 
 

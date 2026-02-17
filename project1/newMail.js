@@ -1,3 +1,4 @@
+// I used google for this part.
 const openButton = document.getElementById("openCompose");
 const modal = document.getElementById("composeModal");
 const closeButton = document.getElementById("closeCompose");
