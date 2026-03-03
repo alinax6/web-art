@@ -1,0 +1,39 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff;
+}
+
+.cup {
+    position: relative;
+    width: 200px;
+    height: 250px;
+    background: salmon;
+    clip-path: polygon(
+        0% 0%,
+        100% 0%,
+        80% 100%,
+        20% 100%
+    );
+    overflow: hidden;
+}
+
+.cup::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80%;
+    background: blue;
+    animation: jitter 0.3s ease-in-out infinite;
+}
+
+@keyframes jitter {
+    0% { transform: translate(0, 0); }
+    40% { transform: translate(2px, -1px); }
+    100% { transform: translate(0, 0); }
+}
