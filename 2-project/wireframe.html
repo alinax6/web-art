@@ -1,0 +1,223 @@
+<svg viewBox="0 0 1200 1800" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="1200" height="1800" fill="#f5f5f5"/>
+    
+    <!-- Title -->
+    <text x="50" y="40" font-family="Arial" font-size="24" font-weight="bold" fill="#333">Plastic Ocean · Scroll Visualization Wireframes</text>
+    <text x="50" y="70" font-family="Arial" font-size="14" fill="#666">Key states: Clean → Transition → Polluted + Mobile View</text>
+    
+    <!-- ========== DESKTOP VIEW ========== -->
+    <!-- Frame 1: Clean Ocean (Start) -->
+    <g transform="translate(50, 120)">
+      <rect width="250" height="400" fill="white" stroke="#333" stroke-width="2" rx="10"/>
+      <text x="125" y="20" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">START · Clean Ocean</text>
+      
+      <!-- Ocean background -->
+      <rect x="10" y="30" width="230" height="340" fill="#e6f3ff"/>
+      
+      <!-- Horizon line -->
+      <line x1="10" y1="100" x2="240" y2="95" stroke="#88c5e8" stroke-width="2" stroke-dasharray="5,5"/>
+      
+      <!-- Clam -->
+      <circle cx="200" cy="350" r="25" fill="#ffe0b5" stroke="#cc9966" stroke-width="2"/>
+      <text x="200" y="360" font-family="Arial" font-size="20" text-anchor="middle" fill="#996633">🦪</text>
+      
+      <!-- UI Elements -->
+      <text x="20" y="50" font-family="Arial" font-size="20" font-weight="bold" fill="#333" opacity="0.7">2019</text>
+      <rect x="20" y="80" width="80" height="25" fill="rgba(0,0,0,0.1)" rx="12"/>
+      <text x="25" y="98" font-family="Arial" font-size="12" fill="#333">0 tonnes</text>
+      
+      <!-- Country panel -->
+      <rect x="140" y="150" width="90" height="120" fill="rgba(0,20,30,0.7)" rx="8"/>
+      <text x="145" y="170" font-family="Arial" font-size="8" fill="white">🌊 Influx</text>
+      <text x="145" y="185" font-family="Arial" font-size="7" fill="#ffcf9a">Indonesia</text>
+      <text x="145" y="195" font-family="Arial" font-size="7" fill="#ffcf9a">Vietnam</text>
+      <text x="145" y="205" font-family="Arial" font-size="7" fill="#ffcf9a">China</text>
+      
+      <!-- Instruction -->
+      <rect x="60" y="380" width="130" height="20" fill="rgba(0,0,0,0.1)" rx="10"/>
+      <text x="125" y="395" font-family="Arial" font-size="9" text-anchor="middle" fill="#333">↓ scroll down ↓</text>
+    </g>
+  
+    <!-- Frame 2: Mid Transition -->
+    <g transform="translate(350, 120)">
+      <rect width="250" height="400" fill="white" stroke="#333" stroke-width="2" rx="10"/>
+      <text x="125" y="20" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">MID · Plastic Appears</text>
+      
+      <!-- Ocean slightly darker -->
+      <rect x="10" y="30" width="230" height="340" fill="#c4d9e8"/>
+      
+      <!-- Plastic items (few) -->
+      <circle cx="50" cy="200" r="6" fill="#aac3d4" opacity="0.7"/>
+      <rect x="120" y="250" width="8" height="15" fill="#e3dcc9" opacity="0.7" transform="rotate(15 120 250)"/>
+      <circle cx="180" cy="150" r="5" fill="#bcd1dd" opacity="0.7"/>
+      
+      <!-- Clam fading -->
+      <circle cx="200" cy="350" r="20" fill="#ffe0b5" opacity="0.5"/>
+      
+      <!-- UI Updates -->
+      <text x="20" y="50" font-family="Arial" font-size="20" font-weight="bold" fill="#333" opacity="0.7">2019</text>
+      <rect x="20" y="80" width="80" height="25" fill="rgba(0,0,0,0.1)" rx="12"/>
+      <text x="25" y="98" font-family="Arial" font-size="12" fill="#333">288k tonnes</text>
+    </g>
+  
+    <!-- Frame 3: Full Pollution -->
+    <g transform="translate(650, 120)">
+      <rect width="250" height="400" fill="white" stroke="#333" stroke-width="2" rx="10"/>
+      <text x="125" y="20" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">END · Heavily Polluted</text>
+      
+      <!-- Dark ocean -->
+      <rect x="10" y="30" width="230" height="340" fill="#7a9eb3"/>
+      
+      <!-- Many plastic items -->
+      <circle cx="30" cy="120" r="6" fill="#aac3d4"/>
+      <rect x="80" y="180" width="8" height="15" fill="#e3dcc9" transform="rotate(45 80 180)"/>
+      <circle cx="150" cy="80" r="5" fill="#bcd1dd"/>
+      <rect x="200" y="220" width="12" height="6" fill="#d6e2ec" transform="rotate(-10 200 220)"/>
+      <circle cx="45" cy="300" r="7" fill="#aac3d4"/>
+      <rect x="160" y="330" width="6" height="18" fill="#eddbb0" transform="rotate(30 160 330)"/>
+      <circle cx="190" cy="270" r="5" fill="#bcd1dd"/>
+      
+      <!-- Clam barely visible -->
+      <circle cx="200" cy="350" r="15" fill="#ffe0b5" opacity="0.2"/>
+      
+      <!-- UI Updates -->
+      <text x="20" y="50" font-family="Arial" font-size="20" font-weight="bold" fill="#333" opacity="0.7">2019</text>
+      <rect x="20" y="80" width="90" height="25" fill="rgba(0,0,0,0.1)" rx="12"/>
+      <text x="25" y="98" font-family="Arial" font-size="12" fill="#333">577k tonnes</text>
+    </g>
+  
+    <!-- ========== MOBILE VIEW ========== -->
+    <g transform="translate(950, 120)">
+      <rect width="200" height="400" fill="white" stroke="#333" stroke-width="2" rx="10"/>
+      <text x="100" y="20" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">MOBILE</text>
+      
+      <!-- Mobile ocean -->
+      <rect x="10" y="30" width="180" height="340" fill="#c4d9e8"/>
+      
+      <!-- Repositioned UI for mobile -->
+      <text x="20" y="50" font-family="Arial" font-size="16" font-weight="bold" fill="#333">2019</text>
+      <rect x="20" y="70" width="70" height="22" fill="rgba(0,0,0,0.1)" rx="10"/>
+      <text x="25" y="86" font-family="Arial" font-size="10" fill="#333">288k t</text>
+      
+      <!-- Mobile country panel (smaller) -->
+      <rect x="110" y="120" width="70" height="90" fill="rgba(0,20,30,0.7)" rx="6"/>
+      <text x="115" y="135" font-family="Arial" font-size="6" fill="white">🌊 Data</text>
+      
+      <!-- Plastic items -->
+      <circle cx="40" cy="180" r="5" fill="#aac3d4"/>
+      <rect x="90" y="220" width="6" height="12" fill="#e3dcc9"/>
+      
+      <!-- Instruction (bottom) -->
+      <rect x="40" y="360" width="120" height="18" fill="rgba(0,0,0,0.1)" rx="8"/>
+      <text x="100" y="373" font-family="Arial" font-size="8" text-anchor="middle" fill="#333">scroll ↓</text>
+    </g>
+  
+    <!-- ========== UI COMPONENT DETAILS ========== -->
+    <g transform="translate(50, 550)">
+      <rect width="1100" height="220" fill="white" stroke="#ccc" stroke-width="1" rx="10"/>
+      <text x="20" y="20" font-family="Arial" font-size="18" font-weight="bold" fill="#333">UI Components & Layout</text>
+      
+      <!-- Year badge -->
+      <g transform="translate(30, 50)">
+        <rect width="80" height="40" fill="#e0e0e0" rx="8"/>
+        <text x="10" y="25" font-family="Arial" font-size="24" fill="#333">2019</text>
+        <text x="10" y="55" font-family="Arial" font-size="10" fill="#666">Year (fixed top-left)</text>
+      </g>
+      
+      <!-- Mass counter -->
+      <g transform="translate(140, 50)">
+        <rect width="120" height="40" fill="#e0e0e0" rx="20"/>
+        <rect x="5" y="5" width="5" height="30" fill="#fadf8a" rx="2"/>
+        <text x="20" y="25" font-family="Arial" font-size="16" fill="#333">576,712 t</text>
+        <text x="20" y="55" font-family="Arial" font-size="10" fill="#666">Tonnage counter</text>
+      </g>
+      
+      <!-- Country panel -->
+      <g transform="translate(290, 30)">
+        <rect width="150" height="100" fill="#1a2f3a" rx="10"/>
+        <text x="10" y="20" font-family="Arial" font-size="12" fill="white">🌊 Riverine influx</text>
+        <text x="10" y="40" font-family="Arial" font-size="10" fill="#ffcf9a">Indonesia 56,333 t</text>
+        <text x="10" y="55" font-family="Arial" font-size="10" fill="#ffcf9a">China 352,471 t</text>
+        <text x="10" y="70" font-family="Arial" font-size="10" fill="#ffcf9a">India 126,513 t</text>
+        <text x="130" y="95" font-family="Arial" font-size="8" fill="#ccc">Meijer 2021</text>
+        <text x="10" y="115" font-family="Arial" font-size="10" fill="#666">Fixed top-right</text>
+      </g>
+      
+      <!-- Clam -->
+      <g transform="translate(470, 50)">
+        <circle cx="30" cy="30" r="20" fill="#ffe0b5" stroke="#cc9966"/>
+        <text x="25" y="40" font-family="Arial" font-size="20" fill="#996633">🦪</text>
+        <text x="10" y="70" font-family="Arial" font-size="10" fill="#666">Clam (fades with pollution)</text>
+      </g>
+      
+      <!-- Scroll instruction -->
+      <g transform="translate(570, 50)">
+        <rect width="140" height="30" fill="rgba(0,0,0,0.1)" rx="15"/>
+        <text x="25" y="20" font-family="Arial" font-size="14" fill="#333">↓ scroll ↓</text>
+        <text x="20" y="50" font-family="Arial" font-size="10" fill="#666">Centered bottom</text>
+      </g>
+      
+      <!-- Plastic types -->
+      <g transform="translate(740, 30)">
+        <text x="10" y="20" font-family="Arial" font-size="14" font-weight="bold" fill="#333">Plastic Types</text>
+        <circle cx="30" cy="50" r="8" fill="#d6e2ec"/>
+        <text x="45" y="55" font-family="Arial" font-size="10" fill="#333">Bag</text>
+        
+        <rect x="100" y="45" width="8" height="20" fill="#e3dcc9" transform="rotate(10 100 45)"/>
+        <text x="115" y="55" font-family="Arial" font-size="10" fill="#333">Bottle</text>
+        
+        <rect x="170" y="50" width="5" height="25" fill="#eddbb0"/>
+        <text x="180" y="55" font-family="Arial" font-size="10" fill="#333">Straw</text>
+        
+        <polygon points="240,55 235,45 245,45" fill="#bcd1dd"/>
+        <text x="255" y="55" font-family="Arial" font-size="10" fill="#333">Fragment</text>
+      </g>
+      
+      <!-- Citations -->
+      <g transform="translate(30, 180)">
+        <rect width="300" height="30" fill="#e0e0e0" rx="8"/>
+        <text x="10" y="20" font-family="Arial" font-size="10" fill="#333">Meijer et al. (2021) – Our World in Data</text>
+        <text x="10" y="40" font-family="Arial" font-size="8" fill="#666">Bottom-left fixed</text>
+      </g>
+      
+      <g transform="translate(360, 180)">
+        <rect width="160" height="30" fill="#e0e0e0" rx="15"/>
+        <text x="15" y="20" font-family="Arial" font-size="10" fill="#333">plastic ocean</text>
+        <text x="10" y="40" font-family="Arial" font-size="8" fill="#666">Bottom-right fixed</text>
+      </g>
+    </g>
+  
+    <!-- ========== SCROLL MECHANIC ========== -->
+    <g transform="translate(50, 800)">
+      <rect width="1100" height="150" fill="white" stroke="#ccc" stroke-width="1" rx="10"/>
+      <text x="20" y="25" font-family="Arial" font-size="18" font-weight="bold" fill="#333">Scroll Progress → Pollution Accumulation</text>
+      
+      <!-- Progress bar -->
+      <rect x="50" y="60" width="1000" height="20" fill="#e0e0e0" rx="10"/>
+      <rect x="50" y="60" width="0" height="20" fill="#4a7a9c" rx="10" id="progress-start">
+        <animate attributeName="width" from="0" to="1000" dur="3s" fill="freeze" repeatCount="indefinite"/>
+      </rect>
+      
+      <!-- Markers -->
+      <text x="50" y="100" font-family="Arial" font-size="12" fill="#333">Clean</text>
+      <text x="500" y="100" font-family="Arial" font-size="12" fill="#333">Mid (50% · 288k t)</text>
+      <text x="950" y="100" font-family="Arial" font-size="12" fill="#333">Polluted (577k t)</text>
+      
+      <!-- Plastic count correlation -->
+      <text x="50" y="130" font-family="Arial" font-size="11" fill="#666">0 items</text>
+      <text x="500" y="130" font-family="Arial" font-size="11" fill="#666">~400 items</text>
+      <text x="950" y="130" font-family="Arial" font-size="11" fill="#666">800 items</text>
+    </g>
+  
+    <!-- ========== ANNOTATIONS ========== -->
+    <g transform="translate(50, 980)">
+      <text x="10" y="20" font-family="Arial" font-size="14" font-weight="bold" fill="#333">Key Interaction Patterns:</text>
+      <text x="30" y="45" font-family="Arial" font-size="12" fill="#555">• Scroll position maps to plastic density (0 → 800 items)</text>
+      <text x="30" y="70" font-family="Arial" font-size="12" fill="#555">• Tonnage counter updates smoothly: 0 → 576,712 tonnes</text>
+      <text x="30" y="95" font-family="Arial" font-size="12" fill="#555">• Plastic items fade in/out with persistent floating animation</text>
+      <text x="30" y="120" font-family="Arial" font-size="12" fill="#555">• Clam opacity decreases as pollution increases</text>
+      <text x="30" y="145" font-family="Arial" font-size="12" fill="#555">• UI remains fixed while ocean canvas scrolls beneath</text>
+      <text x="30" y="170" font-family="Arial" font-size="12" fill="#555">• Responsive: mobile stacks UI elements vertically</text>
+    </g>
+  </svg>

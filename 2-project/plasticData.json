@@ -1,0 +1,40 @@
+{
+  "chart": {
+    "note": "Country totals exclude plastic waste exported overseas, which may be at greater risk of entering the ocean.",
+    "citation": "Meijer et al. (2021)",
+    "originalChartUrl": "https://ourworldindata.org/grapher/plastic-entering-ocean?v=1&csvType=full&useColumnShortNames=false&measure=total",
+    "selection": [
+      "Indonesia",
+      "Vietnam",
+      "China",
+      "India",
+      "United States"
+    ]
+  },
+  "columns": {
+    "Plastic pollution entering the ocean through rivers": {
+      "titleShort": "Plastic pollution entering the ocean through rivers",
+      "titleLong": "Plastic pollution entering the ocean through rivers",
+      "descriptionShort": "Estimated quantity of plastic pollution entering the ocean via rivers, in tonnes per year.",
+      "descriptionKey": [
+        "These estimates come from a statistical model that combines location-specific data with environmental factors. They are not direct measurements for every country and river.",
+        "Annual emissions for a river basin are calculated by multiplying the mismanaged plastic waste in each location by its probability of reaching the ocean, then adding up all locations across the entire basin.",
+        "These estimates focus on larger plastic items (typically bigger than 0.5 cm) that float on or near the water surface. They do not include tiny microplastics, plastic on riverbeds, or plastic stopped by dams.",
+        "These estimates have significant uncertainty and can differ substantially from actual measurements. For example, if a river is estimated to carry 100 tonnes of plastic, the true value could reasonably be anywhere from 25 to 400 tonnes, and in some cases could be as low as 10 or as high as 1,000 tonnes.",
+        "These figures do not include plastic waste that is shipped overseas for processing. That exported waste may be at higher risk of entering the ocean if it is not properly managed in the destination country."
+      ],
+      "shortUnit": "t",
+      "unit": "tonnes",
+      "timespan": "2019-2019",
+      "type": "Integer",
+      "owidVariableId": 1144117,
+      "shortName": "me_tons_per_year",
+      "lastUpdated": "2026-01-27",
+      "citationShort": "Meijer et al. (2021) – with minor processing by Our World in Data",
+      "citationLong": "Meijer et al. (2021) – with minor processing by Our World in Data. “Plastic pollution entering the ocean through rivers” [dataset]. Meijer et al., “More than 1000 rivers account for 80% of global riverine plastic emissions into the ocean” [original data].",
+      "fullMetadata": "https://api.ourworldindata.org/v1/indicators/1144117.metadata.json"
+    }
+  },
+  "dateDownloaded": "2026-03-10",
+  "activeFilters": {}
+}
