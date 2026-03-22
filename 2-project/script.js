@@ -166,7 +166,7 @@
         html += `<div><span>${country}</span> · ${tons.toLocaleString()} t</div>`;
       });
       
-      html += `<div style="margin-top:10px; font-size:0.8rem; opacity:0.7;">∑ ≈ ${TOTAL_PLASTIC_TONNES.toLocaleString()} tonnes/year</div>`;
+      html += `<div style="margin-top:10px; font-size:0.8rem; opacity:0.7;">∑ ≈ ${TOTAL_PLASTIC_TONNES.toLocaleString()} tons/year</div>`;
       html += `<div style="font-size:0.7rem; opacity:0.5; border-top:1px dashed #3b6d7e; margin-top:9px; padding-top:6px;">Meijer et al. 2021 · OWID</div>`;
       
       panel.innerHTML = html;
@@ -181,7 +181,7 @@
   
       // update mass counter
       const currentTonnes = Math.round(progress * TOTAL_PLASTIC_TONNES);
-      document.getElementById('massLabel').innerText = currentTonnes.toLocaleString() + ' tonnes';
+      document.getElementById('massLabel').innerText = currentTonnes.toLocaleString() + ' tons';
       
       plasticItems = generatePlasticForProgress(progress);
       
