@@ -1,0 +1,982 @@
+{
+    "countries": [
+      {
+        "name": "Albania",
+        "code": "ALB",
+        "year": 2019,
+        "tons": 1565
+      },
+      {
+        "name": "Algeria",
+        "code": "DZA",
+        "year": 2019,
+        "tons": 5774
+      },
+      {
+        "name": "Angola",
+        "code": "AGO",
+        "year": 2019,
+        "tons": 860
+      },
+      {
+        "name": "Antigua and Barbuda",
+        "code": "ATG",
+        "year": 2019,
+        "tons": 2
+      },
+      {
+        "name": "Argentina",
+        "code": "ARG",
+        "year": 2019,
+        "tons": 4137
+      },
+      {
+        "name": "Australia",
+        "code": "AUS",
+        "year": 2019,
+        "tons": 32
+      },
+      {
+        "name": "Bahamas",
+        "code": "BHS",
+        "year": 2019,
+        "tons": 20
+      },
+      {
+        "name": "Bahrain",
+        "code": "BHR",
+        "year": 2019,
+        "tons": 0
+      },
+      {
+        "name": "Bangladesh",
+        "code": "BGD",
+        "year": 2019,
+        "tons": 24640
+      },
+      {
+        "name": "Barbados",
+        "code": "BRB",
+        "year": 2019,
+        "tons": 45
+      },
+      {
+        "name": "Belgium",
+        "code": "BEL",
+        "year": 2019,
+        "tons": 34
+      },
+      {
+        "name": "Belize",
+        "code": "BLZ",
+        "year": 2019,
+        "tons": 374
+      },
+      {
+        "name": "Benin",
+        "code": "BEN",
+        "year": 2019,
+        "tons": 1639
+      },
+      {
+        "name": "Bosnia and Herzegovina",
+        "code": "BIH",
+        "year": 2019,
+        "tons": 6
+      },
+      {
+        "name": "Brazil",
+        "code": "BRA",
+        "year": 2019,
+        "tons": 37799
+      },
+      {
+        "name": "Brunei",
+        "code": "BRN",
+        "year": 2019,
+        "tons": 134
+      },
+      {
+        "name": "Bulgaria",
+        "code": "BGR",
+        "year": 2019,
+        "tons": 7
+      },
+      {
+        "name": "Burkina Faso",
+        "code": "BFA",
+        "year": 2019,
+        "tons": 0
+      },
+      {
+        "name": "Cambodia",
+        "code": "KHM",
+        "year": 2019,
+        "tons": 1113
+      },
+      {
+        "name": "Cameroon",
+        "code": "CMR",
+        "year": 2019,
+        "tons": 10671
+      },
+      {
+        "name": "Canada",
+        "code": "CAN",
+        "year": 2019,
+        "tons": 238
+      },
+      {
+        "name": "Cape Verde",
+        "code": "CPV",
+        "year": 2019,
+        "tons": 0
+      },
+      {
+        "name": "Chile",
+        "code": "CHL",
+        "year": 2019,
+        "tons": 322
+      },
+      {
+        "name": "China",
+        "code": "CHN",
+        "year": 2019,
+        "tons": 70707
+      },
+      {
+        "name": "Colombia",
+        "code": "COL",
+        "year": 2019,
+        "tons": 431
+      },
+      {
+        "name": "Comoros",
+        "code": "COM",
+        "year": 2019,
+        "tons": 0
+      },
+      {
+        "name": "Congo",
+        "code": "COG",
+        "year": 2019,
+        "tons": 676
+      },
+      {
+        "name": "Costa Rica",
+        "code": "CRI",
+        "year": 2019,
+        "tons": 450
+      },
+      {
+        "name": "Cote d'Ivoire",
+        "code": "CIV",
+        "year": 2019,
+        "tons": 4784
+      },
+      {
+        "name": "Croatia",
+        "code": "HRV",
+        "year": 2019,
+        "tons": 224
+      },
+      {
+        "name": "Cyprus",
+        "code": "CYP",
+        "year": 2019,
+        "tons": 3
+      },
+      {
+        "name": "Democratic Republic of Congo",
+        "code": "COD",
+        "year": 2019,
+        "tons": 420
+      },
+      {
+        "name": "Denmark",
+        "code": "DNK",
+        "year": 2019,
+        "tons": 9
+      },
+      {
+        "name": "Djibouti",
+        "code": "DJI",
+        "year": 2019,
+        "tons": 4
+      },
+      {
+        "name": "Dominica",
+        "code": "DMA",
+        "year": 2019,
+        "tons": 53
+      },
+      {
+        "name": "Dominican Republic",
+        "code": "DOM",
+        "year": 2019,
+        "tons": 6276
+      },
+      {
+        "name": "East Timor",
+        "code": "TLS",
+        "year": 2019,
+        "tons": 715
+      },
+      {
+        "name": "Ecuador",
+        "code": "ECU",
+        "year": 2019,
+        "tons": 1136
+      },
+      {
+        "name": "Egypt",
+        "code": "EGY",
+        "year": 2019,
+        "tons": 2471
+      },
+      {
+        "name": "El Salvador",
+        "code": "SLV",
+        "year": 2019,
+        "tons": 808
+      },
+      {
+        "name": "Equatorial Guinea",
+        "code": "GNQ",
+        "year": 2019,
+        "tons": 405
+      },
+      {
+        "name": "Eritrea",
+        "code": "ERI",
+        "year": 2019,
+        "tons": 48
+      },
+      {
+        "name": "Estonia",
+        "code": "EST",
+        "year": 2019,
+        "tons": 12
+      },
+      {
+        "name": "Fiji",
+        "code": "FJI",
+        "year": 2019,
+        "tons": 365
+      },
+      {
+        "name": "Finland",
+        "code": "FIN",
+        "year": 2019,
+        "tons": 0
+      },
+      {
+        "name": "France",
+        "code": "FRA",
+        "year": 2019,
+        "tons": 235
+      },
+      {
+        "name": "French Guiana",
+        "code": "GUF",
+        "year": 2019,
+        "tons": 7
+      },
+      {
+        "name": "Gabon",
+        "code": "GAB",
+        "year": 2019,
+        "tons": 445
+      },
+      {
+        "name": "Gambia",
+        "code": "GMB",
+        "year": 2019,
+        "tons": 421
+      },
+      {
+        "name": "Georgia",
+        "code": "GEO",
+        "year": 2019,
+        "tons": 3
+      },
+      {
+        "name": "Germany",
+        "code": "DEU",
+        "year": 2019,
+        "tons": 134
+      },
+      {
+        "name": "Ghana",
+        "code": "GHA",
+        "year": 2019,
+        "tons": 4185
+      },
+      {
+        "name": "Greece",
+        "code": "GRC",
+        "year": 2019,
+        "tons": 216
+      },
+      {
+        "name": "Grenada",
+        "code": "GRD",
+        "year": 2019,
+        "tons": 130
+      },
+      {
+        "name": "Guadeloupe",
+        "code": "GLP",
+        "year": 2019,
+        "tons": 4
+      },
+      {
+        "name": "Guatemala",
+        "code": "GTM",
+        "year": 2019,
+        "tons": 7142
+      },
+      {
+        "name": "Guinea",
+        "code": "GIN",
+        "year": 2019,
+        "tons": 2347
+      },
+      {
+        "name": "Guinea-Bissau",
+        "code": "GNB",
+        "year": 2019,
+        "tons": 247
+      },
+      {
+        "name": "Guyana",
+        "code": "GUY",
+        "year": 2019,
+        "tons": 1246
+      },
+      {
+        "name": "Haiti",
+        "code": "HTI",
+        "year": 2019,
+        "tons": 6929
+      },
+      {
+        "name": "Honduras",
+        "code": "HND",
+        "year": 2019,
+        "tons": 2436
+      },
+      {
+        "name": "Hong Kong",
+        "code": "HKG",
+        "year": 2019,
+        "tons": 112
+      },
+      {
+        "name": "Iceland",
+        "code": "ISL",
+        "year": 2019,
+        "tons": 0
+      },
+      {
+        "name": "India",
+        "code": "IND",
+        "year": 2019,
+        "tons": 126513
+      },
+      {
+        "name": "Indonesia",
+        "code": "IDN",
+        "year": 2019,
+        "tons": 56333
+      },
+      {
+        "name": "Iran",
+        "code": "IRN",
+        "year": 2019,
+        "tons": 928
+      },
+      {
+        "name": "Iraq",
+        "code": "IRQ",
+        "year": 2019,
+        "tons": 67
+      },
+      {
+        "name": "Ireland",
+        "code": "IRL",
+        "year": 2019,
+        "tons": 115
+      },
+      {
+        "name": "Israel",
+        "code": "ISR",
+        "year": 2019,
+        "tons": 33
+      },
+      {
+        "name": "Italy",
+        "code": "ITA",
+        "year": 2019,
+        "tons": 414
+      },
+      {
+        "name": "Jamaica",
+        "code": "JAM",
+        "year": 2019,
+        "tons": 2334
+      },
+      {
+        "name": "Japan",
+        "code": "JPN",
+        "year": 2019,
+        "tons": 1835
+      },
+      {
+        "name": "Jordan",
+        "code": "JOR",
+        "year": 2019,
+        "tons": 1
+      },
+      {
+        "name": "Kazakhstan",
+        "code": "KAZ",
+        "year": 2019,
+        "tons": 13
+      },
+      {
+        "name": "Kenya",
+        "code": "KEN",
+        "year": 2019,
+        "tons": 259
+      },
+      {
+        "name": "Kiribati",
+        "code": "KIR",
+        "year": 2019,
+        "tons": 0
+      },
+      {
+        "name": "Kuwait",
+        "code": "KWT",
+        "year": 2019,
+        "tons": 7
+      },
+      {
+        "name": "Latvia",
+        "code": "LVA",
+        "year": 2019,
+        "tons": 9
+      },
+      {
+        "name": "Lebanon",
+        "code": "LBN",
+        "year": 2019,
+        "tons": 684
+      },
+      {
+        "name": "Lesotho",
+        "code": "LSO",
+        "year": 2019,
+        "tons": 0
+      },
+      {
+        "name": "Liberia",
+        "code": "LBR",
+        "year": 2019,
+        "tons": 2638
+      },
+      {
+        "name": "Libya",
+        "code": "LBY",
+        "year": 2019,
+        "tons": 879
+      },
+      {
+        "name": "Lithuania",
+        "code": "LTU",
+        "year": 2019,
+        "tons": 7
+      },
+      {
+        "name": "Macao",
+        "code": "MAC",
+        "year": 2019,
+        "tons": 341
+      },
+      {
+        "name": "Madagascar",
+        "code": "MDG",
+        "year": 2019,
+        "tons": 775
+      },
+      {
+        "name": "Malaysia",
+        "code": "MYS",
+        "year": 2019,
+        "tons": 73098
+      },
+      {
+        "name": "Maldives",
+        "code": "MDV",
+        "year": 2019,
+        "tons": 0
+      },
+      {
+        "name": "Malta",
+        "code": "MLT",
+        "year": 2019,
+        "tons": 0
+      },
+      {
+        "name": "Marshall Islands",
+        "code": "MHL",
+        "year": 2019,
+        "tons": 0
+      },
+      {
+        "name": "Martinique",
+        "code": "MTQ",
+        "year": 2019,
+        "tons": 22
+      },
+      {
+        "name": "Mauritania",
+        "code": "MRT",
+        "year": 2019,
+        "tons": 127
+      },
+      {
+        "name": "Mauritius",
+        "code": "MUS",
+        "year": 2019,
+        "tons": 0
+      },
+      {
+        "name": "Mexico",
+        "code": "MEX",
+        "year": 2019,
+        "tons": 3512
+      },
+      {
+        "name": "Micronesia (country)",
+        "code": "FSM",
+        "year": 2019,
+        "tons": 37
+      },
+      {
+        "name": "Monaco",
+        "code": "MCO",
+        "year": 2019,
+        "tons": 0
+      },
+      {
+        "name": "Montenegro",
+        "code": "MNE",
+        "year": 2019,
+        "tons": 0
+      },
+      {
+        "name": "Morocco",
+        "code": "MAR",
+        "year": 2019,
+        "tons": 1800
+      },
+      {
+        "name": "Mozambique",
+        "code": "MOZ",
+        "year": 2019,
+        "tons": 2544
+      },
+      {
+        "name": "Myanmar",
+        "code": "MMR",
+        "year": 2019,
+        "tons": 2544
+      },
+      {
+        "name": "Namibia",
+        "code": "NAM",
+        "year": 2019,
+        "tons": 2
+      },
+      {
+        "name": "Netherlands",
+        "code": "NLD",
+        "year": 2019,
+        "tons": 271
+      },
+      {
+        "name": "New Zealand",
+        "code": "NZL",
+        "year": 2019,
+        "tons": 68
+      },
+      {
+        "name": "Nicaragua",
+        "code": "NIC",
+        "year": 2019,
+        "tons": 1465
+      },
+      {
+        "name": "Nigeria",
+        "code": "NGA",
+        "year": 2019,
+        "tons": 18640
+      },
+      {
+        "name": "North Korea",
+        "code": "PRK",
+        "year": 2019,
+        "tons": 50
+      },
+      {
+        "name": "Norway",
+        "code": "NOR",
+        "year": 2019,
+        "tons": 0
+      },
+      {
+        "name": "Oman",
+        "code": "OMN",
+        "year": 2019,
+        "tons": 1
+      },
+      {
+        "name": "Pakistan",
+        "code": "PAK",
+        "year": 2019,
+        "tons": 873
+      },
+      {
+        "name": "Palau",
+        "code": "PLW",
+        "year": 2019,
+        "tons": 7
+      },
+      {
+        "name": "Palestine",
+        "code": "PSE",
+        "year": 2019,
+        "tons": 118
+      },
+      {
+        "name": "Panama",
+        "code": "PAN",
+        "year": 2019,
+        "tons": 5237
+      },
+      {
+        "name": "Papua New Guinea",
+        "code": "PNG",
+        "year": 2019,
+        "tons": 3059
+      },
+      {
+        "name": "Peru",
+        "code": "PER",
+        "year": 2019,
+        "tons": 259
+      },
+      {
+        "name": "Philippines",
+        "code": "PHL",
+        "year": 2019,
+        "tons": 356371
+      },
+      {
+        "name": "Poland",
+        "code": "POL",
+        "year": 2019,
+        "tons": 29
+      },
+      {
+        "name": "Portugal",
+        "code": "PRT",
+        "year": 2019,
+        "tons": 76
+      },
+      {
+        "name": "Puerto Rico",
+        "code": "PRI",
+        "year": 2019,
+        "tons": 71
+      },
+      {
+        "name": "Qatar",
+        "code": "QAT",
+        "year": 2019,
+        "tons": 0
+      },
+      {
+        "name": "Reunion",
+        "code": "REU",
+        "year": 2019,
+        "tons": 0
+      },
+      {
+        "name": "Romania",
+        "code": "ROU",
+        "year": 2019,
+        "tons": 80
+      },
+      {
+        "name": "Russia",
+        "code": "RUS",
+        "year": 2019,
+        "tons": 542
+      },
+      {
+        "name": "Saint Kitts and Nevis",
+        "code": "KNA",
+        "year": 2019,
+        "tons": 1
+      },
+      {
+        "name": "Saint Lucia",
+        "code": "LCA",
+        "year": 2019,
+        "tons": 449
+      },
+      {
+        "name": "Saint Martin (French part)",
+        "code": "MAF",
+        "year": 2019,
+        "tons": 0
+      },
+      {
+        "name": "Saint Vincent and the Grenadines",
+        "code": "VCT",
+        "year": 2019,
+        "tons": 81
+      },
+      {
+        "name": "Samoa",
+        "code": "WSM",
+        "year": 2019,
+        "tons": 0
+      },
+      {
+        "name": "Sao Tome and Principe",
+        "code": "STP",
+        "year": 2019,
+        "tons": 77
+      },
+      {
+        "name": "Saudi Arabia",
+        "code": "SAU",
+        "year": 2019,
+        "tons": 3
+      },
+      {
+        "name": "Senegal",
+        "code": "SEN",
+        "year": 2019,
+        "tons": 169
+      },
+      {
+        "name": "Seychelles",
+        "code": "SYC",
+        "year": 2019,
+        "tons": 0
+      },
+      {
+        "name": "Sierra Leone",
+        "code": "SLE",
+        "year": 2019,
+        "tons": 3624
+      },
+      {
+        "name": "Singapore",
+        "code": "SGP",
+        "year": 2019,
+        "tons": 164
+      },
+      {
+        "name": "Sint Maarten (Dutch part)",
+        "code": "SXM",
+        "year": 2019,
+        "tons": 0
+      },
+      {
+        "name": "Slovakia",
+        "code": "SVK",
+        "year": 2019,
+        "tons": 0
+      },
+      {
+        "name": "Slovenia",
+        "code": "SVN",
+        "year": 2019,
+        "tons": 11
+      },
+      {
+        "name": "Solomon Islands",
+        "code": "SLB",
+        "year": 2019,
+        "tons": 100
+      },
+      {
+        "name": "Somalia",
+        "code": "SOM",
+        "year": 2019,
+        "tons": 2
+      },
+      {
+        "name": "South Africa",
+        "code": "ZAF",
+        "year": 2019,
+        "tons": 4266
+      },
+      {
+        "name": "South Korea",
+        "code": "KOR",
+        "year": 2019,
+        "tons": 387
+      },
+      {
+        "name": "Spain",
+        "code": "ESP",
+        "year": 2019,
+        "tons": 235
+      },
+      {
+        "name": "Sri Lanka",
+        "code": "LKA",
+        "year": 2019,
+        "tons": 9654
+      },
+      {
+        "name": "Sudan",
+        "code": "SDN",
+        "year": 2019,
+        "tons": 106
+      },
+      {
+        "name": "Suriname",
+        "code": "SUR",
+        "year": 2019,
+        "tons": 1677
+      },
+      {
+        "name": "Sweden",
+        "code": "SWE",
+        "year": 2019,
+        "tons": 36
+      },
+      {
+        "name": "Syria",
+        "code": "SYR",
+        "year": 2019,
+        "tons": 44
+      },
+      {
+        "name": "Taiwan",
+        "code": "TWN",
+        "year": 2019,
+        "tons": 531
+      },
+      {
+        "name": "Tanzania",
+        "code": "TZA",
+        "year": 2019,
+        "tons": 5785
+      },
+      {
+        "name": "Thailand",
+        "code": "THA",
+        "year": 2019,
+        "tons": 22806
+      },
+      {
+        "name": "Togo",
+        "code": "TGO",
+        "year": 2019,
+        "tons": 436
+      },
+      {
+        "name": "Tonga",
+        "code": "TON",
+        "year": 2019,
+        "tons": 0
+      },
+      {
+        "name": "Trinidad and Tobago",
+        "code": "TTO",
+        "year": 2019,
+        "tons": 3557
+      },
+      {
+        "name": "Tunisia",
+        "code": "TUN",
+        "year": 2019,
+        "tons": 688
+      },
+      {
+        "name": "Turkey",
+        "code": "TUR",
+        "year": 2019,
+        "tons": 14329
+      },
+      {
+        "name": "Ukraine",
+        "code": "UKR",
+        "year": 2019,
+        "tons": 859
+      },
+      {
+        "name": "United Arab Emirates",
+        "code": "ARE",
+        "year": 2019,
+        "tons": 14
+      },
+      {
+        "name": "United Kingdom",
+        "code": "GBR",
+        "year": 2019,
+        "tons": 703
+      },
+      {
+        "name": "United States",
+        "code": "USA",
+        "year": 2019,
+        "tons": 2431
+      },
+      {
+        "name": "Uruguay",
+        "code": "URY",
+        "year": 2019,
+        "tons": 998
+      },
+      {
+        "name": "Venezuela",
+        "code": "VEN",
+        "year": 2019,
+        "tons": 5988
+      },
+      {
+        "name": "Vietnam",
+        "code": "VNM",
+        "year": 2019,
+        "tons": 28221
+      },
+      {
+        "name": "Western Sahara",
+        "code": "ESH",
+        "year": 2019,
+        "tons": 38
+      },
+      {
+        "name": "Yemen",
+        "code": "YEM",
+        "year": 2019,
+        "tons": 252
+      },
+      {
+        "name": "Zimbabwe",
+        "code": "ZWE",
+        "year": 2019,
+        "tons": 0
+      }
+    ]
+  }
