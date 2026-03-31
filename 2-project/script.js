@@ -99,7 +99,7 @@ const SHAPES = [
   },
 ];
 
-// Sinking math (simplified)
+// Sinking math
 function sinkProgress(global, delay) {
   return Math.max(0, Math.min(1, (global - delay) / (1 - delay + 0.001)));
 }
@@ -134,7 +134,9 @@ function makePiece() {
 
 function initPieces() {
   pieces.length = 0;
-  for (let i = 0; i < MAX_PIECES; i++) pieces.push(makePiece());
+  for (let i = 0; i < MAX_PIECES; i++) {
+    pieces.push(makePiece());
+  }
 }
 initPieces();
 
@@ -158,7 +160,7 @@ function drawPiece(p, globalSink) {
 
   p.rot += p.rotSpd;
 
-  // Sunk pieces - just sit at bottom
+  // Sunk pieces just sit at bottom
   if (p.sunk) {
     ctx.setTransform(1, 0, 0, 1, p.restX, p.restY);
     ctx.rotate(p.rot);
@@ -188,7 +190,12 @@ const messageOverlay = document.getElementById('messageOverlay');
 let globalSink = 0;
 
 function updateSink(scroll) {
-  let target = scroll >= 0.98 ? 1 : 0;
+  let target;
+  if (scroll >= 0.98) {
+    target = 1;
+  } else {
+    target = 0;
+  }
   globalSink += (target - globalSink) * 0.004;
 
   if (globalSink < 0.01) {
@@ -230,7 +237,7 @@ function draw() {
   drawBg(scroll);
   ctx.shadowBlur = 0;
 
-  // Show more pieces as you scroll (linear instead of sqrt)
+  // Show more pieces as you scroll (linear growth)
   const toShow = Math.floor(scroll * MAX_PIECES);
   for (let i = 0; i < toShow; i++) {
     drawPiece(pieces[i], sink);
