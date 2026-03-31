@@ -1,329 +1,561 @@
-const canvas = document.getElementById('oceanCanvas');
-const ctx    = canvas.getContext('2d');
+// What happens as you scroll:
+//  0%: "2019" spelled out in floating trash particles
+//  45%: "2019" fully scattered away, ocean filling with plastic
+//  98%: trash sinks to the bottom, message assembles
+//  
 
+const canvas = document.getElementById('oceanCanvas');
+const ctx = canvas.getContext('2d');
+
+// W and H store the canvas size
 let W = canvas.width  = window.innerWidth;
 let H = canvas.height = window.innerHeight;
 
 window.addEventListener('resize', () => {
-    W = canvas.width  = window.innerWidth;
+    W = canvas.width = window.innerWidth;
     H = canvas.height = window.innerHeight;
-    _cachedBgBand = -1;
-    initPieces();
-    buildTrashText();
-    buildMessageText();
+    gradientCache = null; 
+    createPieces();
+    create2019Text();
+    createMessageText();
 });
 
-// ── Data ─────────────────────────────────────────────────────────────────────
-let totalTons = 0;
+
+// load data from json file
+let totalTons = 0; // filled in from data.json
+
 fetch('data.json')
     .then(r => r.json())
-    .then(data => { for (const c of data.countries) totalTons += c.tons; })
+    .then(data => {
+        for (const country of data.countries) totalTons += country.tons;
+    })
     .catch(() => console.warn('Could not load data.json'));
 
-// ── Scroll progress ───────────────────────────────────────────────────────────
-function scrollProgress() {
-    const max = document.body.scrollHeight - window.innerHeight;
-    if (max <= 0) return 0;
-    return Math.min(1, window.scrollY / max);
+// scroll functionality. It returns a number from 0 (top of page) to 1 (bottom of page)
+function getScroll() {
+    const pageHeight = document.body.scrollHeight;
+    const windowHeight = window.innerHeight;
+    const maxScroll = pageHeight - windowHeight;
+    if (maxScroll <= 0) return 0;
+    return Math.min(1, window.scrollY / maxScroll);
 }
 
-// ── Piece colour cache (only recalc when progress shifts noticeably) ──────────
-let _lastPC = -1, _pieceColor = '', _glowColor = '';
-function updatePieceColors(t) {
-    if (Math.abs(t - _lastPC) < 0.005) return;
-    _lastPC = t;
-    const lerp = (a, b) => ((a + (b - a) * t + 0.5) | 0);
-    _pieceColor = `rgb(${lerp(0xda,0x7a)},${lerp(0xee,0x8c)},${lerp(0xff,0x91)})`;
-    _glowColor  = `rgb(${lerp(0xa8,0x3a)},${lerp(0xd8,0x4a)},${lerp(0xff,0x50)})`;
+// color helper functions
+// Mix between two values — t=0 gives a, t=1 gives b
+function mix(a, b, t) {
+    return Math.round(a + (b - a) * t);
 }
 
-// ── Background gradient cache ─────────────────────────────────────────────────
-let _cachedBgBand = -1, _gradBg = null;
-function drawBackground(t) {
-    const band = (t * 200 + 0.5) | 0;
-    if (band !== _cachedBgBand) {
-        _cachedBgBand = band;
-        const l = (a, b) => ((a + (b - a) * t + 0.5) | 0);
-        _gradBg = ctx.createLinearGradient(0, 0, 0, H);
-        _gradBg.addColorStop(0, `rgb(${l(0x00,0x0d)},${l(0xcf,0x25)},${l(0xff,0x35)})`);
-        _gradBg.addColorStop(1, `rgb(${l(0x00,0x08)},${l(0x5c,0x18)},${l(0x80,0x20)})`);
+// Build a CSS colour string by blending two RGB colours
+function mixColor(r1,g1,b1,  r2,g2,b2,  t) {
+    return `rgb(${mix(r1,r2,t)}, ${mix(g1,g2,t)}, ${mix(b1,b2,t)})`;
+}
+
+
+// background darken from brighter blue to darker blue blue as you scroll
+let gradientCache     = null;
+let gradientScrollBand = -1; // track last scroll value so we don't rebuild every frame
+
+function drawBackground(scroll) {
+    // Rebuild the gradient only when scroll changes enough to notice (~0.1%)
+    const band = Math.round(scroll * 700);
+    if (band !== gradientScrollBand) {
+        gradientScrollBand = band;
+
+        gradientCache = ctx.createLinearGradient(0, 0, 0, H);
+        // top of the screen is bright blue
+        gradientCache.addColorStop(0, mixColor(0,207,255,  13,37,53,  scroll));
+        // bottom of the screen is dark blue
+        gradientCache.addColorStop(1, mixColor(0, 92,128,   8,24,32,  scroll));
     }
-    ctx.setTransform(1,0,0,1,0,0);
+
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.globalAlpha = 1;
-    ctx.fillStyle = _gradBg;
+    ctx.fillStyle   = gradientCache;
     ctx.fillRect(0, 0, W, H);
 }
 
-// ── Plastic pieces ────────────────────────────────────────────────────────────
-const MAX_PIECES = 1000;
-const pieces = [];
+// plastic piece colors
+let lastColorScroll = -1;
+let pieceColor = 'rgb(218,238,255)';
+let glowColor  = 'rgb(168,216,255)';
 
-function initPieces() {
-    pieces.length = 0;
-    for (let i = 0; i < MAX_PIECES; i++) {
-        const s = 3 + Math.pow(Math.random(), 1.8) * 32;
-        pieces.push({
-            x:        ((Math.random() * W) + (Math.random() - 0.5) * W * 0.2 + W) % W,
-            y:        H * 0.05 + Math.pow(Math.random(), 0.7) * H * 0.88,
-            size:     s,
-            ax:       0.3 + Math.random() * 1.4,
-            ay:       0.3 + Math.random() * 1.4,
-            rot:      Math.random() * Math.PI * 2,
-            rotSpd:   (Math.random() < 0.15 ? 1 : 0.08) * (Math.random() - 0.5) * 0.06,
-            opacity:  0.3 + Math.random() * 0.65,
-            dx:       (Math.random() - 0.5) * 0.22,
-            dy:       (Math.random() - 0.5) * 0.05,
-            wAmp:     Math.random() * 6,
-            wFreq:    0.0008 + Math.random() * 0.003,
-            wOff:     Math.random() * Math.PI * 2,
-            shape:    Math.floor(Math.random() * 6),
-            bp:       Array.from({length:6}, () => (Math.random()-0.5)*0.7),
-            sinkDelay:Math.random(),
-            floater:  Math.random() < 0.30,
-            sinkY:    null,
-            restX:    Math.random() * W,
-            restY:    null,
-            sunk:     false,
-        });
-    }
+function updatePieceColors(scroll) {
+    // Only recalculate when scroll moves enough (saves a tiny bit of work)
+    if (Math.abs(scroll - lastColorScroll) < 0.005) return;
+    lastColorScroll = scroll;
+
+    // Pale blue/white turns into grey
+    pieceColor = mixColor(218,238,255,  122,140,145,  scroll);
+    // Bright glow turns into dull glow
+    glowColor  = mixColor(168,216,255,   58, 74, 80,  scroll);
 }
-initPieces();
 
-// Each entry draws one shape type given (size, ax, ay, bp).
-// Stored as functions so shape selection is a simple array lookup — no switch needed.
-const SHAPE_DRAWERS = [
-    // 0: rectangle
-    (sz, ax, ay) => ctx.fillRect(-sz*ax*0.5, -sz*ay*0.5, sz*ax, sz*ay),
-    // 1: ellipse
-    (sz, ax, ay) => { ctx.beginPath(); ctx.ellipse(0,0,sz*ax*0.55,sz*ay*0.3,0,0,Math.PI*2); ctx.fill(); },
-    // 2: irregular triangle
-    (sz, ax, ay, bp) => {
+// shape drawing. Each shape is function that draws on the canvas at position (0,0).
+// The canvas is moved with ctx.setTransform()
+const SHAPES = [
+    // Rectangle represents bottle caps and packaging
+    (size, sx, sy) =>
+        ctx.fillRect(-size*sx*0.5, -size*sy*0.5, size*sx, size*sy),
+
+    // Ellipse represents plastic bags 
+    (size, sx, sy) => {
         ctx.beginPath();
-        ctx.moveTo(0,               -sz*(0.5+bp[0]*0.3));
-        ctx.lineTo( sz*(0.45+bp[1]*0.25),  sz*(0.35+bp[2]*0.2));
-        ctx.lineTo(-sz*(0.4 +bp[3]*0.25),  sz*(0.3 +bp[4]*0.2));
-        ctx.closePath(); ctx.fill();
+        ctx.ellipse(0, 0, size*sx*0.55, size*sy*0.3, 0, 0, Math.PI*2);
+        ctx.fill();
     },
-    // 3: line / straw
-    (sz, ax) => { ctx.lineWidth=3; ctx.beginPath(); ctx.moveTo(-sz*ax*0.7,-sz*0.08); ctx.lineTo(sz*ax*0.7,sz*0.08); ctx.stroke(); },
-    // 4: blob polygon
-    (sz, ax, ay, bp) => {
+
+    // Triangle represents broken plastic pieces
+    // bp[] = pre-baked random offsets that make each triangle slightly different
+    (size, sx, sy, bp) => {
         ctx.beginPath();
-        for (let j=0;j<5;j++) {
-            const a=j/5*Math.PI*2, r=sz*(0.35+bp[j%6]*0.3);
-            j ? ctx.lineTo(Math.cos(a)*r*ax, Math.sin(a)*r*ay)
-              : ctx.moveTo(Math.cos(a)*r*ax, Math.sin(a)*r*ay);
+        ctx.moveTo(0, -size*(0.5  + bp[0]*0.3));
+        ctx.lineTo( size*(0.45 + bp[1]*0.25), size*(0.35 + bp[2]*0.2));
+        ctx.lineTo(-size*(0.4  + bp[3]*0.25), size*(0.3  + bp[4]*0.2));
+        ctx.closePath();
+        ctx.fill();
+    },
+
+    // Thin line represents straws and fishing line
+    (size, sx) => {
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(-size*sx*0.7, -size*0.08);
+        ctx.lineTo( size*sx*0.7,  size*0.08);
+        ctx.stroke();
+    },
+
+    // Blob polygon represents crumpled pieces
+    (size, sx, sy, bp) => {
+        ctx.beginPath();
+        for (let i = 0; i < 5; i++) {
+            const angle  = (i / 5) * Math.PI * 2;
+            const radius = size * (0.35 + bp[i % 6] * 0.3);
+            const px = Math.cos(angle) * radius * sx;
+            const py = Math.sin(angle) * radius * sy;
+            i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
         }
-        ctx.closePath(); ctx.fill();
+        ctx.closePath();
+        ctx.fill();
     },
-    // 5: ring
-    (sz, ax) => { ctx.lineWidth=sz*0.15; ctx.beginPath(); ctx.arc(0,0,sz*0.3*ax,0,Math.PI*2); ctx.stroke(); },
+
+    // Ring represents bottle tops and plastic rings
+    (size, sx) => {
+        ctx.lineWidth = size * 0.15;
+        ctx.beginPath();
+        ctx.arc(0, 0, size*0.3*sx, 0, Math.PI*2);
+        ctx.stroke();
+    },
 ];
 
-function drawShape(p) {
-    SHAPE_DRAWERS[p.shape](p.size, p.ax, p.ay, p.bp);
+// Draw a shape by moving the canvas coordinate system to (x, y) first
+function drawShapeAt(piece, x, y, alpha, fillColor, strokeColor) {
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = fillColor || pieceColor;
+    ctx.strokeStyle = strokeColor || glowColor;
+    ctx.setTransform(piece.ax, 0, 0, piece.ay, x, y);
+    ctx.rotate(piece.rot);
+    SHAPES[piece.shape](piece.size, piece.ax, piece.ay, piece.bp);
 }
 
-function drawPiece(p, time, sinkProgress) {
-    let sx=0, sy=0, sRot=0;
+// sinking helper functions
+// 0 represents the sinking has not started and 1 represents its fully sunken
+// sinkDelay staggers the pieces so they fall one by one rather than all at once
+function getSinkProgress(globalSink, sinkDelay) {
+    return Math.max(0, (globalSink - sinkDelay) / (1 - sinkDelay + 0.001));
+}
 
-    if (sinkProgress > 0 && !p.floater) {
-        const lp = Math.max(0, (sinkProgress - p.sinkDelay) / (1 - p.sinkDelay + 0.001));
-        if (lp > 0) {
+// The fall curve starts fast and slows down as the piece settles into the pile
+function getFallAmount(progress) {
+    if (progress < 0.7) {
+        return Math.pow(progress / 0.7, 1.8) * 0.85;
+    }
+
+    return 0.85 + ((progress - 0.7) / 0.3) * 0.15;
+}
+
+// Allows pieces near the edge to pile lower
+function calcRestY(piece) {
+    const distFromCentre = Math.abs(piece.restX - W * 0.5) / (W * 0.5);
+    return H - piece.size * (0.5 + piece.wAmp * 0.2) - distFromCentre * H * 0.04;
+}
+
+// floating plastic pieces
+const MAX_PIECES = 1000;
+const pieces     = [];
+
+// randomly generates different plastic piece properties
+function makePiece() {
+    return {
+        // Start at a random position, towards the upper part of the screen
+        x: ((Math.random() * W) + (Math.random() - 0.5) * W * 0.2 + W) % W,
+        y: H * 0.05 + Math.pow(Math.random(), 0.7) * H * 0.88,
+
+        size: 3 + Math.pow(Math.random(), 1.8) * 32, // mostly small, some large
+        ax: 0.3 + Math.random() * 1.4,   // x stretch (makes shapes varied)
+        ay: 0.3 + Math.random() * 1.4,   // y stretch
+        rot: Math.random() * Math.PI * 2,  // random starting angle
+        rotSpd: (Math.random() < 0.15 ? 1 : 0.08) * (Math.random() - 0.5) * 0.06,
+        opacity: 0.3 + Math.random() * 0.65,
+        dx: (Math.random() - 0.5) * 0.22, // horizontal float speed
+        dy: (Math.random() - 0.5) * 0.05, // vertical float speed
+        wAmp: Math.random() * 6,             // how much it bobs up and down
+        wFreq: 0.0008 + Math.random() * 0.003,// how fast it bobs
+        wOff: Math.random() * Math.PI * 2,   // timing offset (so not all in sync)
+        shape: Math.floor(Math.random() * 6),
+        bp: Array.from({length: 6}, () => (Math.random() - 0.5) * 0.7),
+
+        sinkDelay: Math.random(),       // delay before this piece starts sinking (0–1)
+        floater: Math.random() < 0.3, // 30% of pieces never sink (always visible)
+        sinkY: null,                // y position when sinking started
+        restX: Math.random() * W,   // x position in the final pile
+        restY: null,
+        sunk: false,               // true once it has reached the bottom
+    };
+}
+
+// creates the plastic pieces based off their random properties from makePiece
+function createPieces() {
+    pieces.length = 0;
+    for (let i = 0; i < MAX_PIECES; i++) {
+        pieces.push(makePiece());
+    }
+}
+createPieces();
+
+function drawPiece(p, time, globalSink) {
+    let offsetX = 0, offsetY = 0, extraSpin = 0;
+
+    // Calculate sinking offset if this piece should be falling
+    if (globalSink > 0 && !p.floater) {
+        const sinkProgress = getSinkProgress(globalSink, p.sinkDelay);
+
+        if (sinkProgress > 0) {
+            // Remember where it started falling so it can compute the offset
             if (p.sinkY === null) {
                 p.sinkY = p.y;
-                p.restY = H - p.size*(0.5+p.wAmp*0.2) - Math.abs(p.restX-W*0.5)/(W*0.5)*H*0.04;
+                p.restY = calcRestY(p);
             }
-            const fall = lp<0.7 ? Math.pow(lp/0.7,1.8)*0.85 : 0.85+(lp-0.7)/0.3*0.15;
-            sx   = (p.restX - p.x) * fall;
-            sy   = (p.restY - p.sinkY) * fall;
-            sRot = lp * Math.PI * (2+p.sinkDelay*3) * (1-fall*0.9);
-            if (lp >= 0.999) p.sunk = true;
+
+            const fall = getFallAmount(sinkProgress);
+            offsetX = (p.restX - p.x) * fall;
+            offsetY = (p.restY - p.sinkY) * fall;
+            extraSpin = sinkProgress * Math.PI * (2 + p.sinkDelay * 3) * (1 - fall * 0.9);
+
+            if (sinkProgress >= 0.999) {
+                p.sunk = true;
+            }
         }
     }
 
+    // spin plastic a little each frame
+    p.rot += p.rotSpd; 
+
+    // Once plastic sinks, keep it frozen in place at the bottom pile
     if (p.sunk) {
-        ctx.globalAlpha = p.opacity * 0.9;
-        ctx.fillStyle = _pieceColor; ctx.strokeStyle = _glowColor;
-        ctx.setTransform(1,0,0,1,p.restX,p.restY);
+        ctx.setTransform(1, 0, 0, 1, p.restX, p.restY);
         ctx.rotate(p.rot);
-        drawShape(p);
+        ctx.globalAlpha = p.opacity * 0.9;
+        ctx.fillStyle = pieceColor;
+        ctx.strokeStyle = glowColor;
+        SHAPES[p.shape](p.size, p.ax, p.ay, p.bp);
         return;
     }
 
+    // Plastic floats around the screen
+    // drift left/right, wrap edges
     p.x = (p.x + p.dx + W) % W;
+    // drift up/down, clamp to screen
     p.y = Math.max(H*0.02, Math.min(H*0.97, p.y + p.dy));
+    // reverse direction at edges
     if (p.y >= H*0.97 || p.y <= H*0.02) p.dy *= -1;
 
-    const wobble = Math.sin(time * p.wFreq + p.wOff) * p.wAmp;
-    p.rot += p.rotSpd;
+    const bob = Math.sin(time * p.wFreq + p.wOff) * p.wAmp;   // gentle bobbing
+    const pulse  = 0.85 + 0.15 * Math.sin(time * 0.0018 + p.x * 0.01); // slow opacity shimmer
 
-    ctx.globalAlpha = p.opacity * (0.85 + 0.15*Math.sin(time*0.0018 + p.x*0.01));
-    ctx.fillStyle = _pieceColor; ctx.strokeStyle = _glowColor;
-    ctx.setTransform(1,0,0,1, p.x+sx, p.y+wobble+sy);
-    ctx.rotate(p.rot + sRot);
-    drawShape(p);
+    ctx.setTransform(1, 0, 0, 1, p.x + offsetX, p.y + bob + offsetY);
+    ctx.rotate(p.rot + extraSpin);
+    ctx.globalAlpha = p.opacity * pulse;
+    ctx.fillStyle   = pieceColor;
+    ctx.strokeStyle = glowColor;
+    SHAPES[p.shape](p.size, p.ax, p.ay, p.bp);
 }
 
-// ── Pixel-mask text builder (shared by both text systems) ─────────────────────
-function buildTextPieces(text, fontStr, maxCount, stride, threshold) {
-    const oc = document.createElement('canvas');
-    oc.width = W; oc.height = Math.ceil(H * 0.4);
-    const ox = oc.getContext('2d');
-    ox.clearRect(0,0,oc.width,oc.height);
-    ox.font = fontStr; ox.fillStyle='#fff'; ox.textBaseline='top';
-    const tw = ox.measureText(text).width;
-    ox.fillText(text, (W-tw)/2, 0);
-    const px = ox.getImageData(0,0,oc.width,oc.height).data;
-    const hits = [];
-    for (let y=0; y<oc.height; y+=stride)
-        for (let x=0; x<oc.width; x+=stride)
-            if (px[(y*oc.width+x)*4+3] > threshold) hits.push([x,y]);
-    for (let i=hits.length-1;i>0;i--){const j=(Math.random()*(i+1))|0;[hits[i],hits[j]]=[hits[j],hits[i]];}
-    return hits.slice(0, maxCount);
+
+// =============================================================================
+// TEXT PIXEL SAMPLER
+// To make text out of particles, we:
+//   1. Draw the text onto a hidden canvas
+//   2. Check every pixel — if it's filled, save its position
+//   3. Shuffle those positions randomly
+//   4. Return as many as we need
+// =============================================================================
+
+function sampleTextPixels(text, font, maxParticles, pixelStep, minAlpha) {
+    // Create a hidden canvas just for measuring the text
+    const offscreen = document.createElement('canvas');
+    offscreen.width  = W;
+    offscreen.height = Math.ceil(H * 0.4);
+
+    const offCtx = offscreen.getContext('2d');
+    offCtx.font          = font;
+    offCtx.fillStyle     = '#fff';
+    offCtx.textBaseline  = 'top';
+
+    // Centre the text horizontally
+    const textWidth = offCtx.measureText(text).width;
+    offCtx.fillText(text, (W - textWidth) / 2, 0);
+
+    // Read back all the pixel data and find which ones are filled
+    const pixels       = offCtx.getImageData(0, 0, offscreen.width, offscreen.height).data;
+    const filledPixels = [];
+
+    for (let y = 0; y < offscreen.height; y += pixelStep) {
+        for (let x = 0; x < offscreen.width; x += pixelStep) {
+            const alphaChannel = pixels[(y * offscreen.width + x) * 4 + 3]; // 0=transparent, 255=opaque
+            if (alphaChannel > minAlpha) filledPixels.push([x, y]);
+        }
+    }
+
+    // Shuffle so particles are distributed randomly across the letters
+    for (let i = filledPixels.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [filledPixels[i], filledPixels[j]] = [filledPixels[j], filledPixels[i]];
+    }
+
+    return filledPixels.slice(0, maxParticles);
 }
 
-// ── "2019" trash text ─────────────────────────────────────────────────────────
-let _trashPieces = [], _trashReady = false;
-function buildTrashText() {
-    const fontSize = Math.min(W*0.38, 300);
-    const glyphH   = Math.round(fontSize*1.3);
-    const offsetY  = (H - glyphH) * 0.42;
-    const hits     = buildTextPieces('2019', `900 ${fontSize}px Arial,sans-serif`, 700, 3, 128);
-    _trashPieces = hits.map(([cx,cy]) => {
-        const ox=cx+(Math.random()-0.5)*4, oy=cy+offsetY+(Math.random()-0.5)*4;
-        return {
-            x:ox, y:oy, ox, oy,
-            size: 1.5+Math.random()*5,
-            rot:  Math.random()*Math.PI*2,
-            rotSpd:(Math.random()-0.5)*0.04,
-            shape:Math.floor(Math.random()*4),
-            ax:0.4+Math.random()*1.2, ay:0.4+Math.random()*1.2,
-            bp: Array.from({length:6},()=>(Math.random()-0.5)*0.7),
-            dx:(Math.random()-0.5)*2, dy:(Math.random()-0.5)*2,
-            wAmp:1+Math.random()*3, wFreq:0.001+Math.random()*0.003, wOff:Math.random()*Math.PI*2,
-            sinkDelay:Math.random(),
-            restX:20+Math.random()*(W-40), restY:null,
-            spinDir:Math.random()<0.5?1:-1,
-        };
-    });
-    _trashReady = true;
+// Create a particle object at a given (x, y) position
+// Used by both the 2019 text and the end message
+function makeParticle(x, y, shapeCount, minSize, maxSizeRange, rotSpeed) {
+    return {
+        x, y,
+        originX: x, originY: y, // remember the starting position for sinking
+        size:    minSize + Math.random() * maxSizeRange,
+        rot:     Math.random() * Math.PI * 2,
+        rotSpd:  (Math.random() - 0.5) * rotSpeed,
+        shape:   Math.floor(Math.random() * shapeCount),
+        ax:      0.4 + Math.random() * 1.2,
+        ay:      0.4 + Math.random() * 1.2,
+        bp:      Array.from({length: 6}, () => (Math.random() - 0.5) * 0.7),
+        wAmp:    0.5 + Math.random() * 2,
+        wFreq:   0.001 + Math.random() * 0.003,
+        wOff:    Math.random() * Math.PI * 2,
+    };
 }
-buildTrashText();
 
-function drawTrashText(progress, time, sinkProgress) {
-    const fadeT = Math.min(1, progress/0.45);
-    const alpha = (1-fadeT)*0.55;
-    if (alpha <= 0 || !_trashReady) return;
-    const colT = Math.min(1, progress/0.6);
-    const l=(a,b)=>((a+(b-a)*colT+0.5)|0);
-    const col = `rgb(${l(0xda,0x7a)},${l(0xee,0x8c)},${l(0xff,0x91)})`;
-    ctx.setTransform(1,0,0,1,0,0);
-    for (const p of _trashPieces) {
-        const scX = p.dx*fadeT*fadeT*W*0.35, scY = p.dy*fadeT*fadeT*H*0.35;
-        let sox=0,soy=0,spin=0;
-        if (sinkProgress > 0) {
-            const lp = Math.max(0,(sinkProgress-p.sinkDelay)/(1-p.sinkDelay+0.001));
-            if (lp > 0) {
-                if (!p.restY) {
-                    p.restY = H - p.size*1.5 - Math.abs(p.restX-W*0.5)/(W*0.5)*H*0.04;
-                }
-                const fall = lp<0.7 ? Math.pow(lp/0.7,1.8)*0.85 : 0.85+(lp-0.7)/0.3*0.15;
-                sox=(p.restX-p.ox)*fall; soy=(p.restY-p.oy)*fall;
-                spin=lp*Math.PI*(2+p.sinkDelay*3)*(1-fall*0.9)*p.spinDir;
+
+// =============================================================================
+// "2019" TRASH TEXT — visible at the start, scatters as you scroll
+// =============================================================================
+
+let yearParticles = [];
+let yearReady     = false;
+
+function create2019Text() {
+    const fontSize     = Math.min(W * 0.38, 300);
+    const textHeight   = Math.round(fontSize * 1.3);
+    const verticalPos  = (H - textHeight) * 0.42; // slightly above centre
+
+    const pixelPositions = sampleTextPixels('2019', `900 ${fontSize}px Arial, sans-serif`, 700, 3, 128);
+
+    yearParticles = pixelPositions.map(([px, py]) => ({
+        ...makeParticle(
+            px + (Math.random() - 0.5) * 4,
+            py + verticalPos + (Math.random() - 0.5) * 4,
+            4, 1.5, 5, 0.04
+        ),
+        scatterDirX: (Math.random() - 0.5) * 2, // direction to scatter when fading
+        scatterDirY: (Math.random() - 0.5) * 2,
+        sinkDelay:   Math.random(),
+        restX:       20 + Math.random() * (W - 40),
+        restY:       null,
+        spinDir:     Math.random() < 0.5 ? 1 : -1,
+    }));
+
+    yearReady = true;
+}
+create2019Text();
+
+function draw2019Text(scroll, time, globalSink) {
+    // Fade out as you scroll — gone by 45% scroll
+    const fadeProgress = Math.min(1, scroll / 0.45);
+    const alpha        = (1 - fadeProgress) * 0.55;
+    if (alpha <= 0 || !yearReady) return;
+
+    // Colour fades from pale blue toward grey as particles scatter
+    const color = mixColor(218,238,255,  122,140,145,  Math.min(1, scroll / 0.6));
+
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+    for (const p of yearParticles) {
+        // Scatter quadratically so movement accelerates as they fade
+        const scatter = fadeProgress * fadeProgress;
+        let shiftX = p.scatterDirX * scatter * W * 0.35;
+        let shiftY = p.scatterDirY * scatter * H * 0.35;
+        let spin   = 0;
+
+        // Also sink at the bottom (same logic as regular pieces)
+        if (globalSink > 0) {
+            const sp = getSinkProgress(globalSink, p.sinkDelay);
+            if (sp > 0) {
+                if (!p.restY) p.restY = H - p.size * 1.5 - Math.abs(p.restX - W*0.5) / (W*0.5) * H * 0.04;
+                const fall = getFallAmount(sp);
+                shiftX += (p.restX - p.originX) * fall;
+                shiftY += (p.restY - p.originY) * fall;
+                spin    = sp * Math.PI * (2 + p.sinkDelay * 3) * (1 - fall * 0.9) * p.spinDir;
             }
         }
-        const wob = sinkProgress>0 ? 0 : Math.sin(time*p.wFreq+p.wOff)*p.wAmp;
+
+        const bob = globalSink > 0 ? 0 : Math.sin(time * p.wFreq + p.wOff) * p.wAmp;
         p.rot += p.rotSpd;
+
         ctx.globalAlpha = alpha;
-        ctx.fillStyle = ctx.strokeStyle = col;
-        ctx.setTransform(p.ax,0,0,p.ay, p.x+sox+scX, p.y+wob+soy+scY);
-        ctx.rotate(p.rot+spin);
-        SHAPE_DRAWERS[p.shape](p.size, p.ax, p.ay, p.bp);
+        ctx.fillStyle   = color;
+        ctx.strokeStyle = color;
+        ctx.setTransform(p.ax, 0, 0, p.ay, p.x + shiftX, p.y + bob + shiftY);
+        ctx.rotate(p.rot + spin);
+        SHAPES[p.shape](p.size, p.ax, p.ay, p.bp);
     }
-    ctx.globalAlpha=1;
+
+    ctx.globalAlpha = 1;
 }
 
-// ── End message ───────────────────────────────────────────────────────────────
-let _msgPieces=[], _msgReady=false;
-function buildMessageText() {
-    _msgPieces=[];
-    const lines = ["The ocean doesn't forget", "about what we throw away."];
-    const fs    = Math.max(28, Math.min(W*0.075, 72));
-    const lineH = fs*1.45;
-    const topY  = H*0.5 - lineH;
-    lines.forEach((line, li) => {
-        const hits = buildTextPieces(line, `700 ${fs}px Arial,sans-serif`, 2000, 2, 80);
-        const screenY = topY + li*lineH;
-        for (const [cx,cy] of hits) {
-            _msgPieces.push({
-                x:cx+(Math.random()-0.5)*3, y:screenY+cy+(Math.random()-0.5)*3,
-                size:2.5+Math.random()*3,
-                rot:Math.random()*Math.PI*2, rotSpd:(Math.random()-0.5)*0.025,
-                shape:Math.floor(Math.random()*4),
-                ax:0.7+Math.random()*0.5, ay:0.7+Math.random()*0.5,
-                bp:Array.from({length:6},()=>(Math.random()-0.5)*0.7),
-                wAmp:0.3+Math.random()*1, wFreq:0.0008+Math.random()*0.002, wOff:Math.random()*Math.PI*2,
-                revealAt:0.55+Math.random()*0.45,
+
+// =============================================================================
+// END MESSAGE — assembles from particles when trash has sunk to the bottom
+// =============================================================================
+
+let messageParticles = [];
+let messageReady     = false;
+
+function createMessageText() {
+    messageParticles = [];
+
+    const lines    = ["The ocean doesn't forget", "about what we throw away."];
+    const fontSize = Math.max(28, Math.min(W * 0.075, 72));
+    const lineH    = fontSize * 1.45;
+    const startY   = H * 0.5 - lineH; // centre both lines on screen
+
+    lines.forEach((line, lineIndex) => {
+        const positions = sampleTextPixels(line, `900 ${fontSize}px Arial, sans-serif`, 2000, 1, 80);
+        const lineY     = startY + lineIndex * lineH;
+
+        for (const [px, py] of positions) {
+            messageParticles.push({
+                ...makeParticle(
+                    px + (Math.random() - 0.5) * 2,
+                    lineY + py + (Math.random() - 0.5) * 2,
+                    4, 2.2, 2, 0.015
+                ),
+                ax:       0.8 + Math.random() * 0.3, // override ax/ay for tighter look
+                ay:       0.8 + Math.random() * 0.3,
+                // stagger each particle's reveal so the text assembles gradually
+                revealAt: 0.55 + Math.random() * 0.45,
             });
         }
     });
-    _msgReady=true;
-}
-buildMessageText();
 
-function drawMessageText(sinkProgress, time) {
-    if (!_msgReady || sinkProgress < 0.55) return;
-    const msgA = Math.min(1,(sinkProgress-0.55)/0.20);
-    if (msgA <= 0) return;
-    ctx.setTransform(1,0,0,1,0,0);
-    for (const p of _msgPieces) {
-        const pa = msgA * Math.min(1,Math.max(0,(sinkProgress-p.revealAt)/0.05));
-        if (pa < 0.02) continue;
-        const wob = Math.sin(time*p.wFreq+p.wOff)*p.wAmp;
+    messageReady = true;
+}
+createMessageText();
+
+function drawMessageText(globalSink, time) {
+    if (!messageReady || globalSink < 0.55) return;
+
+    // Fade in the whole message over sinkProgress 0.55 → 0.75
+    const overallAlpha = Math.min(1, (globalSink - 0.55) / 0.20);
+    if (overallAlpha <= 0) return;
+
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+    for (const p of messageParticles) {
+        // Each particle fades in once globalSink passes its personal revealAt value
+        const alpha = overallAlpha * Math.min(1, Math.max(0, (globalSink - p.revealAt) / 0.05));
+        if (alpha < 0.02) continue;
+
+        const bob = Math.sin(time * p.wFreq + p.wOff) * p.wAmp;
         p.rot += p.rotSpd;
-        ctx.globalAlpha = pa*0.98;
-        ctx.fillStyle='#d8eef5'; ctx.strokeStyle='#aaced8';
-        ctx.setTransform(p.ax,0,0,p.ay,p.x,p.y+wob);
+
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle   = '#eef8ff'; // pale icy white
+        ctx.strokeStyle = '#c8e8f5';
+        ctx.setTransform(p.ax, 0, 0, p.ay, p.x, p.y + bob);
         ctx.rotate(p.rot);
-        SHAPE_DRAWERS[p.shape](p.size, p.ax, p.ay, p.bp);
+        SHAPES[p.shape](p.size, p.ax, p.ay, p.bp);
     }
-    ctx.globalAlpha=1;
+
+    ctx.globalAlpha = 1;
 }
 
-// ── Sink progress ─────────────────────────────────────────────────────────────
-let _sinkSmoothed=0;
-function getSinkProgress(p) {
-    _sinkSmoothed += ((p>=0.98?1:0) - _sinkSmoothed)*0.004;
-    if (_sinkSmoothed < 0.01) {
-        for (const pc of pieces) { pc.sunk=false; pc.sinkY=null; }
+
+// =============================================================================
+// SINK PROGRESS — smoothly increases when user reaches the bottom of the page
+// =============================================================================
+
+let globalSink = 0;
+
+function updateSink(scroll) {
+    const target = scroll >= 0.98 ? 1 : 0; // 1 = at bottom, 0 = not at bottom
+    globalSink  += (target - globalSink) * 0.004; // ease toward target (lerp)
+
+    // If user scrolled back up, un-sink all the pieces
+    if (globalSink < 0.01) {
+        for (const p of pieces) {
+            p.sunk  = false;
+            p.sinkY = null;
+        }
     }
-    return _sinkSmoothed;
+
+    return globalSink;
 }
 
-// ── Main loop ─────────────────────────────────────────────────────────────────
+
+// =============================================================================
+// MAIN ANIMATION LOOP — runs 60 times per second via requestAnimationFrame
+// =============================================================================
+
+// Cache the instruction element so we don't look it up every frame
+const instructionEl = document.querySelector('.instruction');
+
 function draw() {
-    const progress = scrollProgress();
-    const time     = Date.now();
-    const sink     = getSinkProgress(progress);
+    const scroll = getScroll();
+    const time   = Date.now();  // milliseconds since page load, used for animation timing
+    const sink   = updateSink(scroll);
 
+    // Update the "X tons" counter in the corner
     document.getElementById('massLabel').innerText =
-        Math.round(progress*totalTons).toLocaleString()+' tons';
+        Math.round(scroll * totalTons).toLocaleString() + ' tons';
 
-    updatePieceColors(progress);
-    drawBackground(progress);
+    // Fade the "↓ scroll down" hint out in the first 15% of scroll
+    if (instructionEl) instructionEl.style.opacity = Math.max(0, 1 - scroll / 0.15);
 
-    ctx.shadowBlur=0;
-    const count = Math.floor(progress*MAX_PIECES);
-    for (let i=0;i<count;i++) drawPiece(pieces[i], time, sink);
+    // Draw everything back-to-front (painter's algorithm)
+    updatePieceColors(scroll);
+    drawBackground(scroll);
 
-    ctx.setTransform(1,0,0,1,0,0); ctx.globalAlpha=1;
-    drawTrashText(progress, time, sink);
+    ctx.shadowBlur = 0; // shadows are expensive — keep them off
+
+    // Show pieces using a square-root curve so the ocean fills up fast at first
+    const numVisible = Math.floor(Math.sqrt(scroll) * MAX_PIECES);
+    for (let i = 0; i < numVisible; i++) drawPiece(pieces[i], time, sink);
+
+    // Reset the canvas transform after piece drawing
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.globalAlpha = 1;
+
+    draw2019Text(scroll, time, sink);
     drawMessageText(sink, time);
 
-    requestAnimationFrame(draw);
+    requestAnimationFrame(draw); // schedule the next frame
 }
 
-document.body.style.minHeight='400vh';
-document.getElementById('yearLabel').style.display='none';
+// Make the page tall enough to scroll through (4 screen heights)
+document.body.style.minHeight = '400vh';
+
+// Hide the HTML year label — we draw "2019" on the canvas instead
+document.getElementById('yearLabel').style.display = 'none';
+
+// Start the animation
 requestAnimationFrame(draw);
