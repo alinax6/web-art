@@ -10,7 +10,7 @@ body {
   background: #081820;
   color: #e2f0fa;
   overflow-x: hidden;
-  min-height: 400vh;
+  min-height: 400vh; /* makes the page tall enough to scroll through */
 }
 
 #oceanCanvas {

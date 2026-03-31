@@ -7,16 +7,6 @@ const ctx = canvas.getContext('2d');
 let W = canvas.width = window.innerWidth;
 let H = canvas.height = window.innerHeight;
 
-// rebuild everything when window resizes
-window.addEventListener('resize', () => {
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
-  bgGradient = null;
-  initPieces();
-  initYearText();
-  initMessage();
-});
-
 // load the data representing how much plastic each country dumps
 let totalTons = 0;
 
@@ -31,16 +21,12 @@ fetch('data.json')
 
 function getScroll() {
   const max = document.body.scrollHeight - window.innerHeight;
-  return max <= 0 ? 0 : Math.min(1, window.scrollY / max);
-}
-
-// simple lerp for colors
-function lerp(a, b, t) {
-  return Math.round(a + (b - a) * t);
-}
-
-function lerpColor(r1,g1,b1, r2,g2,b2, t) {
-  return `rgb(${lerp(r1,r2,t)}, ${lerp(g1,g2,t)}, ${lerp(b1,b2,t)})`;
+  if (max <= 0) {
+    return 0;
+  } 
+  else {
+    return Math.min(1, window.scrollY / max);
+  }
 }
 
 // background gradient that darkens as you scroll down
@@ -52,10 +38,12 @@ function drawBg(scroll) {
   if (step !== lastScroll) {
     lastScroll = step;
     bgGradient = ctx.createLinearGradient(0, 0, 0, H);
-    bgGradient.addColorStop(0, lerpColor(0,207,255, 13,37,53, scroll));
-    bgGradient.addColorStop(1, lerpColor(0,92,128, 8,24,32, scroll));
+    bgGradient.addColorStop(0, `rgb(${Math.round(0  + (13 -  0) * scroll)}, 
+    ${Math.round(207 + (37  - 207) * scroll)}, ${Math.round(255 + (53  - 255) * scroll)})`);
+    bgGradient.addColorStop(1, `rgb(${Math.round(0  + (8  -  0) * scroll)}, 
+    ${Math.round(92  + (24  -  92) * scroll)}, ${Math.round(128 + (32  - 128) * scroll)})`);
   }
-  ctx.setTransform(1,0,0,1,0,0);
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.globalAlpha = 1;
   ctx.fillStyle = bgGradient;
   ctx.fillRect(0,0,W,H);
@@ -64,7 +52,7 @@ function drawBg(scroll) {
 let plasticColor = 'rgb(218,238,255)';
 
 function updatePlasticColor(scroll) {
-  plasticColor = lerpColor(218,238,255, 122,140,145, scroll);
+  plasticColor = `rgb(${Math.round(218 + (122 - 218) * scroll)}, ${Math.round(238 + (140 - 238) * scroll)}, ${Math.round(255 + (145 - 255) * scroll)})`;
 }
 
 // shape definitions. Each draws at origin around (0,0)
@@ -104,7 +92,11 @@ const SHAPES = [
       const r = sz * (0.35 + bp[i%6]*0.3);
       const x = Math.cos(ang) * r * sx;
       const y = Math.sin(ang) * r * sy;
-      i === 0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+      if (i === 0) {
+        ctx.moveTo(x, y);
+      } else {
+        ctx.lineTo(x, y);
+      }
     }
     ctx.closePath();
     ctx.fill();
@@ -141,23 +133,23 @@ const pieces = [];
 
 function makePiece() {
   return {
-    x: ((Math.random() * W) + (Math.random() - 0.5) * W * 0.2 + W) % W,
-    y: H * 0.05 + Math.pow(Math.random(), 0.7) * H * 0.88,
-    size: 3 + Math.pow(Math.random(), 1.8) * 32,
-    ax: 0.3 + Math.random() * 1.4,
-    ay: 0.3 + Math.random() * 1.4,
+    x: (Math.random() * W) % W, 
+    y: (Math.random() * H) % H, 
+    size: 5 + Math.random() * 30, 
+    ax: 0.5 + Math.random(), 
+    ay: 0.5 + Math.random(), 
     rot: Math.random() * Math.PI * 2,
-    rotSpd: (Math.random() < 0.15 ? 1 : 0.08) * (Math.random() - 0.5) * 0.06,
-    opacity: 0.3 + Math.random() * 0.65,
-    dx: (Math.random() - 0.5) * 0.22,
-    dy: (Math.random() - 0.5) * 0.05,
-    wAmp: Math.random() * 6,
-    wFreq: 0.0008 + Math.random() * 0.003,
+    rotSpd: (Math.random() - 0.5) * 0.01,
+    opacity: 0.3 + Math.random() * 0.7,
+    dx: (Math.random() - 0.5) * 0.1,
+    dy: (Math.random() - 0.5) * 0.03,
+    wAmp: Math.random() * 4,
+    wFreq: 0.001 + Math.random() * 0.002, 
     wOff: Math.random() * Math.PI * 2,
     shape: Math.floor(Math.random() * 6),
-    bp: Array.from({ length: 6 }, () => (Math.random() - 0.5) * 0.7),
-    sinkDelay: Math.random(),
-    floater: Math.random() < 0.3,
+    bp: Array.from({ length: 6 }, () => Math.random() - 0.5),
+    sinkDelay: Math.random(),  
+    floater: Math.random() < 0.3, 
     sinkY: null,
     restX: Math.random() * W,
     restY: null,
@@ -167,12 +159,16 @@ function makePiece() {
 
 function initPieces() {
   pieces.length = 0;
-  for (let i = 0; i < MAX_PIECES; i++) pieces.push(makePiece());
+  for (let i = 0; i < MAX_PIECES; i++) {
+    pieces.push(makePiece());
+  }
 }
 initPieces();
 
 function drawPiece(p, now, globalSink) {
-  let offX = 0, offY = 0, spinBonus = 0;
+  let offX = 0;
+  let offY = 0; 
+  let spinBonus = 0;
 
   if (globalSink > 0 && !p.floater) {
     const sp = sinkProgress(globalSink, p.sinkDelay);
@@ -300,7 +296,9 @@ function drawYearText(scroll, now, globalSink) {
   const alpha = (1 - fade) * 0.55;
   if (alpha <= 0) return;
 
-  const color = lerpColor(218,238,255, 122,140,145, Math.min(1, scroll / 0.6));
+  const t = Math.min(1, scroll / 0.6);
+  const color = `rgb(${Math.round(218 + (122 - 218) * t)}, 
+  ${Math.round(238 + (140 - 238) * t)}, ${Math.round(255 + (145 - 255) * t)})`;
   ctx.setTransform(1,0,0,1,0,0);
 
   for (const p of yearParticles) {
@@ -396,7 +394,10 @@ function drawMessage(globalSink, now) {
 let globalSink = 0;
 
 function updateSink(scroll) {
-  let target = scroll >= 0.98 ? 1 : 0;
+  let target = 0;
+  if (scroll >= 0.98) {
+    target = 1;
+  }
   globalSink += (target - globalSink) * 0.004;
 
   if (globalSink < 0.01) {
@@ -436,4 +437,4 @@ function draw() {
   requestAnimationFrame(draw);
 }
 
-requestAnimationFrame(draw)
+requestAnimationFrame(draw);
