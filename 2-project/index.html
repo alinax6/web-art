@@ -8,7 +8,16 @@
     <body>
         <canvas id="oceanCanvas"></canvas>
 
-        <div class="year" id="yearLabel">2019</div>
+        <!-- Year text overlay (replaces the old .year div) -->
+        <div class="year-overlay" id="yearOverlay">
+            <div class="year-text">2019</div>
+        </div>
+
+        <!-- Message text overlay (appears at bottom) -->
+        <div class="message-overlay" id="messageOverlay">
+            <div class="message-text">The ocean doesn't forget<br>about what we throw away.</div>
+        </div>
+
         <div class="mass-counter" id="massLabel">0 tons</div>
         <!-- <div class="citation">Meijer et al. (2021) – with minor processing by Our World in Data</div> -->
         <div class="instruction">↓ scroll down</div>
