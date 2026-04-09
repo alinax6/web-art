@@ -125,6 +125,7 @@ function makePiece() {
     dy: randomRange(-0.05, 0.05),
     shape: Math.floor(Math.random() * 4),
     sinkDelay: Math.random(),
+    floater: Math.random() < 0.25,  // 25% of pieces never sink
     sinkY: null,
     restX: Math.random() * W,
     restY: null,
@@ -143,8 +144,8 @@ initPieces();
 function drawPiece(p, globalSink) {
   let offX = 0, offY = 0;
 
-  // Sinking logic
-  if (globalSink > 0) {
+  // Sinking logic — floaters are skipped entirely
+  if (globalSink > 0 && !p.floater) {
     const sp = sinkProgress(globalSink, p.sinkDelay);
     if (sp > 0) {
       if (p.sinkY === null) {
