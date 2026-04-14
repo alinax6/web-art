@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Something Is Missing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="progress"></div>
+
+
+  <section id="hero">
+    <div class="txt">
+      <span class="eyebrow reveal">a recipe and a memory</span>
+      <h1 class="reveal d1">You have the recipe.<br><em>It still isn't right.</em></h1>
+      <p class="reveal d2">You've made it a dozen times.</p>
+      <p class="reveal d3 soft italic">Each one close. Never quite there.</p>
+      <div class="rule reveal d4"></div>
+      <span class="eyebrow reveal d4">scroll to begin</span>
+    </div>
+  </section>
+
+  <div class="orn-sec"><div class="orn reveal">I</div></div>
+
+<!-- scene 1: kitchen -->
+  <section id="s1">
+
+    <div class="scene-block reveal">
+      <div id="scene-kitchen" class="scene-img-wrap">
+
+        <img src="placeholder.jpg" alt="the kitchen" class="scene-img">
+
+        <div class="fade-layer" data-fade-at="0.15" style="background: rgba(139,58,26,.15)">
+          <img src="placeholder.jpg" alt="the figure at the counter">
+          <span class="layer-label">the figure at the counter</span>
+        </div>
+        <div class="fade-layer" data-fade-at="0.32" style="background: rgba(80,120,60,.15)">
+          <img src="placeholder.jpg" alt="ingredients scattered on the counter">
+          <span class="layer-label">ingredients scattered on the counter</span>
+        </div>
+        <div class="fade-layer" data-fade-at="0.50" style="background: rgba(60,90,160,.15)">
+          <img src="placeholder.jpg" alt="the mixing bowl">
+          <span class="layer-label">the mixing bowl</span>
+        </div>
+        <div class="fade-layer" data-fade-at="0.68" style="background: rgba(200,170,50,.15)">
+          <img src="placeholder.jpg" alt="afternoon light">
+          <span class="layer-label">afternoon light</span>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <div class="orn-sec"><div class="orn reveal">II</div></div>
+
+<!-- scene 2: recipe card -->
+  <section id="s2" data-chapter="II — The Card">
+
+    <div class="two-col reveal">
+
+      <div class="col-img">
+        <img src="placeholder.jpg" alt="the recipe card" class="illo-img">
+      </div>
+
+      <div class="col-text">
+        <span class="eyebrow">her sponge cake</span>
+        <p class="card-title">Afternoon baking. Always the same tin.</p>
+
+        <div class="ingredient-list">
+          <div class="ingredient"><span class="qty">3</span>eggs</div>
+          <div class="ingredient"><span class="qty">150 g</span>sugar</div>
+          <div class="ingredient"><span class="qty">150 g</span>flour</div>
+          <div class="ingredient"><span class="qty">150 g</span>butter</div>
+          <div class="ingredient"><span class="qty">2 tbsp</span>milk</div>
+          <div class="ingredient missing">
+            <span class="qty"></span>
+            <span class="missing-pulse">?</span>
+            <span>something...</span>
+          </div>
+        </div>
+
+        <p class="card-note">Bake at 350°F until golden.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <div class="orn-sec"><div class="orn reveal">III</div></div>
+
+
+<!-- scene 3: memory wheel -->
+  <section id="s3" data-chapter="III — The Smell">
+
+    <div class="txt-center reveal" style="margin-bottom:2rem">
+      <h2>What do you <em>remember</em>?</h2>
+    </div>
+
+    <div class="wheel-wrap reveal d1">
+
+      <div class="wheel-ring" style="width:92%;height:92%"></div>
+
+      <div class="wheel-center">
+        <span id="wheel-center-text">choose<br>a memory</span>
+      </div>
+
+      <div class="petal" data-pos="0" data-key="light"  onclick="selectPetal(this)">
+        <img class="petal-img" src="placeholder.jpg" alt="light">
+        <span class="petal-name">light and airy</span>
+      </div>
+      <div class="petal" data-pos="1" data-key="vanilla" onclick="selectPetal(this)">
+        <img class="petal-img" src="placeholder.jpg" alt="vanilla">
+        <span class="petal-name">splash of vanilla</span>
+      </div>
+      <div class="petal" data-pos="2" data-key="caramel" onclick="selectPetal(this)">
+        <img class="petal-img" src="placeholder.jpg" alt="caramel">
+        <span class="petal-name">caramel edge</span>
+      </div>
+      <div class="petal" data-pos="3" data-key="lemon"   onclick="selectPetal(this)">
+        <img class="petal-img" src="placeholder.jpg" alt="lemon">
+        <span class="petal-name">something citrus</span>
+      </div>
+      <div class="petal" data-pos="4" data-key="savory"   onclick="selectPetal(this)">
+        <img class="petal-img" src="placeholder.jpg" alt="savory">
+        <span class="petal-name">pinch of salt</span>
+      </div>
+      <div class="petal" data-pos="5" data-key="buttery"   onclick="selectPetal(this)">
+        <img class="petal-img" src="placeholder.jpg" alt="buttery">
+        <span class="petal-name">rich and decadent</span>
+      </div>
+
+    </div>
+
+    <p class="wheel-response" id="wheel-response"></p>
+
+  </section>
+
+  <div class="orn-sec"><div class="orn reveal">IV</div></div>
+
+<!-- scene 4: attempts -->
+  <section id="s4" data-chapter="IV — Attempts">
+
+    <div class="txt-center reveal" style="margin-bottom:2rem">
+      <h2>Closer each time.<br><em>Never close enough.</em></h2>
+    </div>
+
+    <div class="reveal d1" style="width:100%;max-width:460px">
+
+      <div class="bowl-stack">
+        <div class="bowl-layer active">
+          <img src="placeholder.jpg" alt="attempt 1" class="bowl-img">
+          <span class="bowl-label">attempt 1 — light</span>
+          <p class="bowl-desc">You baked it on a bright afternoon. The light was right. The taste wasn't.</p>
+        </div>
+      
+        <div class="bowl-layer">
+          <img src="placeholder.jpg" alt="attempt 2" class="bowl-img">
+          <span class="bowl-label">attempt 2 — vanilla</span>
+          <p class="bowl-desc">You bought the same brand. The smell was exactly right. But something still wasn't right.</p>
+        </div>
+      
+        <div class="bowl-layer">
+          <img src="placeholder.jpg" alt="attempt 3" class="bowl-img">
+          <span class="bowl-label">attempt 3 — caramel</span>
+          <p class="bowl-desc">You let the edges go golden. You ate them standing at the counter. Still missing something.</p>
+        </div>
+      
+        <div class="bowl-layer">
+          <img src="placeholder.jpg" alt="attempt 4" class="bowl-img">
+          <span class="bowl-label">attempt 4 — lemon</span>
+          <p class="bowl-desc">You added lemon zest. Something brightened. But it wasn't the right tang.</p>
+        </div>
+      
+        <div class="bowl-layer">
+          <img src="placeholder.jpg" alt="attempt 5" class="bowl-img">
+          <span class="bowl-label">attempt 5 — savory</span>
+          <p class="bowl-desc">A pinch of salt in the batter. But it still wasn't the same.</p>
+        </div>
+      
+        <div class="bowl-layer">
+          <img src="placeholder.jpg" alt="attempt 6" class="bowl-img">
+          <span class="bowl-label">attempt 6 — buttery</span>
+          <p class="bowl-desc">You browned the butter. The kitchen smelled how it used to. But the taste still wasn't it.</p>
+        </div>
+      </div>
+
+      <div class="attempt-nav">
+        <button class="attempt-btn" id="btn-prev" onclick="stepBowl(-1)" disabled>← earlier</button>
+        <span class="attempt-counter" id="attempt-counter">attempt 1 — light</span>
+        <button class="attempt-btn" id="btn-next" onclick="stepBowl(1)">later →</button>
+      </div>
+
+      <div class="dot-strip" id="dot-strip">
+        <span class="on"></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+    </div>
+
+  </section>
+
+  <div class="orn-sec"><div class="orn reveal">V</div></div>
+
+
+<!-- scene 5: closing -->
+  <section id="s5" data-chapter="V — What's Missing">
+    <div class="closing-txt">
+      <h2 class="reveal">Maybe <em>you</em><br>are what's missing.</h2>
+
+
+      <p class="reveal d2">You make it again and look for that familiar taste.</p>
+
+      <a href="#hero" class="back-link reveal d4">— begin again</a>
+    </div>
+
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
