@@ -38,7 +38,7 @@ window.addEventListener('scroll', function() {
     if (progress < fadeAt) {
       layer.style.opacity = 1;
     } else {
-      layer.style.opacity = Math.max(0, 1 - (progress - fadeAt) / 0.15);
+      layer.style.opacity = Math.max(0, 1 - (progress - fadeAt) / 0.6);
     }
   });
 });
@@ -68,7 +68,7 @@ const smellData = {
     text: 'One teaspoon. She kept it in a small brown bottle at the back of the cupboard. You still buy the same brand without thinking.'
   },
   caramel: {
-    center: 'caramel',
+    center: 'golden',
     attempt: 2,
     text: 'The edges where the batter caught the tin. She\'d let you have that part. You\'d eat it still warm, standing at the counter.'
   },
@@ -85,7 +85,7 @@ const smellData = {
   buttery: {
     center: 'buttery',
     attempt: 5,
-    text: 'Rich and warm and slightly too much. The kind of thing that feels like being looked after. You haven\'t felt that in a while.'
+    text: 'Rich and warm. The kind of thing that feels like being looked after. You haven\'t felt that in a while.'
   }
 };
 
