@@ -60,32 +60,32 @@ const smellData = {
   light: {
     center: 'light',
     attempt: 0,
-    text: 'The kitchen in the afternoon. That particular gold through the window. You didn\'t notice it then. You notice it now.'
+    text: 'You remember the kitchen in the afternoon. That particular gold through the window. You didn’t notice it then, but you notice it now.'
   },
   vanilla: {
     center: 'vanilla',
     attempt: 1,
-    text: 'One teaspoon. She kept it in a small brown bottle at the back of the cupboard. You still buy the same brand without thinking.'
+    text: 'You measure one teaspoon. She kept it in a small brown bottle at the back of the cupboard. You still buy the same brand without thinking.'
   },
   caramel: {
     center: 'golden',
     attempt: 2,
-    text: 'The edges where the batter caught the tin. She\'d let you have that part. You\'d eat it still warm, standing at the counter.'
+    text: 'You remember the edges where the batter caught the tin. She would let you have that part. You would eat it still warm, standing at the counter.'
   },
   lemon: {
     center: 'citrus',
     attempt: 3,
-    text: 'Something bright you could never account for. It isn\'t in the recipe. Maybe she added it quietly, every time, without writing it down.'
+    text: 'You taste something bright you can never account for. It isn’t in the recipe. Maybe she added it quietly, every time, without writing it down.'
   },
   savory: {
     center: 'savory',
     attempt: 4,
-    text: 'The flour already measured before you woke up. The bowl already set out. She was always a step ahead of the morning.'
+    text: 'You find the flour already measured before you woke up. The bowl already set out. She was always a step ahead of the morning.'
   },
   buttery: {
     center: 'buttery',
     attempt: 5,
-    text: 'Rich and warm. The kind of thing that feels like being looked after. You haven\'t felt that in a while.'
+    text: 'You taste something rich and warm. The kind of thing that feels like being looked after. You haven’t felt that in a while.'
   }
 };
 
