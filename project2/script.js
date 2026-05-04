@@ -14,7 +14,8 @@ let H = canvas.height = window.innerHeight;
 window.addEventListener('resize', () => {
     W = canvas.width = window.innerWidth;
     H = canvas.height = window.innerHeight;
-    gradientCache = null; 
+    gradientCache = null;
+    MAX_PIECES = calcMaxPieces();
     createPieces();
     create2019Text();
     createMessageText();
@@ -118,7 +119,7 @@ const SHAPES = [
 
     // Thin line represents straws and fishing line
     (size, sx) => {
-        ctx.lineWidth = 3;
+        ctx.lineWidth = Math.max(1, size * 0.18);
         ctx.beginPath();
         ctx.moveTo(-size*sx*0.7, -size*0.08);
         ctx.lineTo( size*sx*0.7,  size*0.08);
@@ -181,8 +182,11 @@ function calcRestY(piece) {
 }
 
 // floating plastic pieces
-const MAX_PIECES = 1000;
-const pieces     = [];
+function calcMaxPieces() {
+    return Math.round((W * H) / (Math.min(W, H) < 600 ? 2200 : 1400));
+}
+let MAX_PIECES = calcMaxPieces();
+const pieces   = [];
 
 // randomly generates different plastic piece properties
 function makePiece() {
@@ -191,7 +195,7 @@ function makePiece() {
         x: ((Math.random() * W) + (Math.random() - 0.5) * W * 0.2 + W) % W,
         y: H * 0.05 + Math.pow(Math.random(), 0.7) * H * 0.88,
 
-        size: 3 + Math.pow(Math.random(), 1.8) * 32, // mostly small, some large
+        size: (3 + Math.pow(Math.random(), 1.8) * 32) * (Math.min(W, H) < 600 ? 0.6 : 1),
         ax: 0.3 + Math.random() * 1.4,   // x stretch (makes shapes varied)
         ay: 0.3 + Math.random() * 1.4,   // y stretch
         rot: Math.random() * Math.PI * 2,  // random starting angle
@@ -358,7 +362,7 @@ function create2019Text() {
     const textHeight   = Math.round(fontSize * 1.3);
     const verticalPos  = (H - textHeight) * 0.42; // slightly above centre
 
-    const pixelPositions = sampleTextPixels('2019', `900 ${fontSize}px Arial, sans-serif`, 700, 3, 128);
+    const pixelPositions = sampleTextPixels('2019', `900 ${fontSize}px Arial, sans-serif`, Math.round(W * 0.65), 3, 128);
 
     yearParticles = pixelPositions.map(([px, py]) => ({
         ...makeParticle(
@@ -434,12 +438,12 @@ function createMessageText() {
     messageParticles = [];
 
     const lines    = ["The ocean doesn't forget", "about what we throw away."];
-    const fontSize = Math.max(28, Math.min(W * 0.075, 72));
+    const fontSize = Math.max(16, Math.min(W * 0.055, 72));
     const lineH    = fontSize * 1.45;
     const startY   = H * 0.5 - lineH; // centre both lines on screen
 
     lines.forEach((line, lineIndex) => {
-        const positions = sampleTextPixels(line, `900 ${fontSize}px Arial, sans-serif`, 2000, 1, 80);
+        const positions = sampleTextPixels(line, `900 ${fontSize}px Arial, sans-serif`, Math.round(W * 1.8), 1, 80);
         const lineY     = startY + lineIndex * lineH;
 
         for (const [px, py] of positions) {
