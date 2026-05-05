@@ -19,23 +19,25 @@ window.addEventListener("click", function (e) {
     }
 });
 
-let mailCount = 4;
+let mailCount = 100;
 
 sendButton.addEventListener("click", function () {
-    const title = document.getElementById("emailTitle").value;
-    const content = document.getElementById("emailContent").value;
+    const title = document.getElementById("emailTitle").value.trim();
+    const content = document.getElementById("emailContent").value.trim();
+
+    if (!title && !content) return;
 
     const mailId = "mail" + mailCount;
 
     const envelope = document.createElement("a");
     envelope.href = "#" + mailId;
     envelope.className = "envelope";
-    envelope.style.top = Math.random() * 70 + "%";
-    envelope.style.left = Math.random() * 70 + "%";
+    const isMobile = window.innerWidth < 480;
+    envelope.style.top = Math.random() * (isMobile ? 55 : 70) + "%";
+    envelope.style.left = Math.random() * (isMobile ? 45 : 65) + "%";
     envelope.style.animation = "wander 20s ease-in-out infinite";
 
     document.querySelector(".envelopes")?.appendChild(envelope);
-
 
     const mailDiv = document.createElement("div");
     mailDiv.id = mailId;
@@ -44,8 +46,8 @@ sendButton.addEventListener("click", function () {
     mailDiv.innerHTML = `
         <div class="mail-window">
             <a href="#" class="close">close</a>
-            <h2>${title}</h2>
-            <p>${content}</p>
+            <h2>${title || "(no subject)"}</h2>
+            <p>${content || "(no content)"}</p>
         </div>
     `;
 
@@ -53,6 +55,6 @@ sendButton.addEventListener("click", function () {
 
     document.getElementById("emailTitle").value = "";
     document.getElementById("emailContent").value = "";
-    modal.style.display = "none";
+    modal.classList.remove("open");
     mailCount++;
 });
