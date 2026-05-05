@@ -662,7 +662,7 @@ body {
 .deleted-page {
     background: black;
     color: #d13737;
-    overflow: hidden;
+    overflow-x: hidden;
     position: relative;
 }
 
@@ -865,16 +865,37 @@ body {
     .envelope2,
     .envelope4,
     .envelope9 {
-        left: 60%;
+        left: 55%;
     }
 
     .sent-title {
-        min-height: 100px;
+        min-height: 80px;
         overflow: hidden;
+        display: block;
+        width: 100%;
     }
 
     .plane-container {
-        top: 20px;
+        top: 10px;
+        left: -40px;
+    }
+
+    @keyframes wander {
+        0% {
+            transform: translate(0, 0) rotate(-2deg);
+        }
+        25% {
+            transform: translate(20px, -25px) rotate(1deg);
+        }
+        50% {
+            transform: translate(-15px, 30px) rotate(-1deg);
+        }
+        75% {
+            transform: translate(18px, 35px) rotate(2deg);
+        }
+        100% {
+            transform: translate(0, 0) rotate(-2deg);
+        }
     }
 }
 
@@ -909,10 +930,42 @@ body {
         min-height: 200px;
     }
 
+    .envelope {
+        width: clamp(40px, 12vw, 60px);
+        height: clamp(26px, 8vw, 38px);
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .envelope::before {
+        border-top: calc(clamp(26px, 8vw, 38px) / 2) solid #818181;
+        border-left: calc(clamp(40px, 12vw, 60px) / 2) solid transparent;
+        border-right: calc(clamp(40px, 12vw, 60px) / 2) solid transparent;
+    }
+
     .envelope3,
     .envelope5,
     .envelope7,
     .envelope10 {
         display: none;
+    }
+
+    .envelope6,
+    .envelope8 {
+        left: 40%;
+    }
+
+    .sent-title {
+        min-height: 60px;
+    }
+
+    .modal-content {
+        margin: 10px auto;
+        width: calc(100% - 20px);
+    }
+
+    .modal input,
+    .modal textarea {
+        font-size: 16px;
     }
 }

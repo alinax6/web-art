@@ -30,8 +30,9 @@ sendButton.addEventListener("click", function () {
     const envelope = document.createElement("a");
     envelope.href = "#" + mailId;
     envelope.className = "envelope";
-    envelope.style.top = Math.random() * 70 + "%";
-    envelope.style.left = Math.random() * 70 + "%";
+    const isMobile = window.innerWidth < 480;
+    envelope.style.top = Math.random() * (isMobile ? 55 : 70) + "%";
+    envelope.style.left = Math.random() * (isMobile ? 45 : 65) + "%";
     envelope.style.animation = "wander 20s ease-in-out infinite";
 
     document.querySelector(".envelopes")?.appendChild(envelope);
