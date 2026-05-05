@@ -11,13 +11,27 @@ const ctx = canvas.getContext('2d');
 let W = canvas.width  = window.innerWidth;
 let H = canvas.height = window.innerHeight;
 
+let resizeTimer = null;
+let lastW = W;
+
 window.addEventListener('resize', () => {
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-    gradientCache = null; 
-    createPieces();
-    create2019Text();
-    createMessageText();
+    const newW = window.innerWidth;
+    const newH = window.innerHeight;
+
+    // Ignore height-only changes — these are caused by the mobile browser
+    // toolbar collapsing/expanding during scroll, not a real layout change
+    if (newW === lastW && Math.abs(newH - H) < 150) return;
+
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+        lastW = newW;
+        W = canvas.width = newW;
+        H = canvas.height = newH;
+        gradientCache = null;
+        createPieces();
+        create2019Text();
+        createMessageText();
+    }, 200);
 });
 
 
@@ -516,17 +530,18 @@ function updateSink(scroll) {
 // MAIN ANIMATION LOOP — runs 60 times per second via requestAnimationFrame
 // =============================================================================
 
-// Cache the instruction element so we don't look it up every frame
+// Cache the instruction and mass label elements so we don't look them up every frame
 const instructionEl = document.querySelector('.instruction');
+const massEl = document.getElementById('massLabel');
 
 function draw() {
     const scroll = getScroll();
     const time   = Date.now();  // milliseconds since page load, used for animation timing
     const sink   = updateSink(scroll);
 
-    // Update the "X tons" counter in the corner
-    document.getElementById('massLabel').innerText =
-        Math.round(scroll * totalTons).toLocaleString() + ' tons';
+    // Update the "X tons" counter in the corner only when the value changes
+    const newMass = Math.round(scroll * totalTons).toLocaleString() + ' tons';
+    if (massEl.innerText !== newMass) massEl.innerText = newMass;
 
     // Fade the "↓ scroll down" hint out in the first 15% of scroll
     if (instructionEl) instructionEl.style.opacity = Math.max(0, 1 - scroll / 0.15);
