@@ -6,16 +6,16 @@ const sendButton = document.getElementById("sendEmail");
 
 openButton.addEventListener("click", function (e) {
     e.preventDefault();
-    modal.style.display = "block";
+    modal.classList.add("open");
 });
 
 closeButton.addEventListener("click", function (e) {
-    modal.style.display = "none";
+    modal.classList.remove("open");
 });
 
 window.addEventListener("click", function (e) {
     if (e.target === modal) {
-        modal.style.display = "none";
+        modal.classList.remove("open");
     }
 });
 
@@ -30,9 +30,8 @@ sendButton.addEventListener("click", function () {
     const envelope = document.createElement("a");
     envelope.href = "#" + mailId;
     envelope.className = "envelope";
-    const isMobile = window.innerWidth < 480;
-    envelope.style.top = Math.random() * (isMobile ? 55 : 70) + "%";
-    envelope.style.left = Math.random() * (isMobile ? 45 : 65) + "%";
+    envelope.style.top = Math.random() * 70 + "%";
+    envelope.style.left = Math.random() * 70 + "%";
     envelope.style.animation = "wander 20s ease-in-out infinite";
 
     document.querySelector(".envelopes")?.appendChild(envelope);

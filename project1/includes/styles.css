@@ -262,11 +262,17 @@ body {
    height: 100%;
    overflow: auto;
    background-color: rgba(15,17,21,0.9);
+   align-items: center;
+   justify-content: center;
+}
+
+.modal.open {
+    display: flex;
 }
 
 .modal-content {
     background-color: #14161b;
-    margin: 10% auto;
+    margin: 0;
     padding: clamp(15px, 4vw, 30px);
     border: 1px solid #3f3e3e;
     width: min(400px, 90%);
@@ -662,7 +668,7 @@ body {
 .deleted-page {
     background: black;
     color: #d13737;
-    overflow-x: hidden;
+    overflow: hidden;
     position: relative;
 }
 
@@ -840,10 +846,18 @@ body {
 
     .folder {
         margin-bottom: 0;
+        margin-left: 0;
         padding: 6px 12px;
         border: 1px solid #2a2d34;
         border-radius: 4px;
         font-size: 13px;
+    }
+
+    .folder:hover,
+    .folder:focus,
+    .folder:active {
+        border-left-width: 1px;
+        padding-left: 12px;
     }
 
     .content-area {
@@ -852,21 +866,28 @@ body {
 
     .mail {
         padding: 20px;
+        align-items: center;
     }
 
     .mail-window {
         padding: 20px;
+        margin: 0 auto;
     }
 
     .envelopes {
-        min-height: 250px;
+        min-height: 280px;
     }
 
-    .envelope2,
-    .envelope4,
-    .envelope9 {
-        left: 55%;
-    }
+    .envelope1  { top: 5%;  left: 5%;  }
+    .envelope2  { top: 5%;  left: 55%; }
+    .envelope3  { top: 30%; left: 30%; }
+    .envelope4  { top: 55%; left: 58%; }
+    .envelope5  { top: 70%; left: 10%; }
+    .envelope6  { top: 55%; left: 5%;  }
+    .envelope7  { top: 30%; left: 60%; }
+    .envelope8  { top: 70%; left: 45%; }
+    .envelope9  { top: 5%;  left: 30%; }
+    .envelope10 { top: 45%; left: 20%; }
 
     .sent-title {
         min-height: 80px;
@@ -881,21 +902,11 @@ body {
     }
 
     @keyframes wander {
-        0% {
-            transform: translate(0, 0) rotate(-2deg);
-        }
-        25% {
-            transform: translate(20px, -25px) rotate(1deg);
-        }
-        50% {
-            transform: translate(-15px, 30px) rotate(-1deg);
-        }
-        75% {
-            transform: translate(18px, 35px) rotate(2deg);
-        }
-        100% {
-            transform: translate(0, 0) rotate(-2deg);
-        }
+        0%   { transform: translate(0, 0) rotate(-2deg); }
+        25%  { transform: translate(20px, -25px) rotate(1deg); }
+        50%  { transform: translate(-15px, 30px) rotate(-1deg); }
+        75%  { transform: translate(18px, 35px) rotate(2deg); }
+        100% { transform: translate(0, 0) rotate(-2deg); }
     }
 }
 
@@ -914,20 +925,23 @@ body {
     }
 
     .modal-content {
-        margin: 5% auto;
+        margin: 0;
         padding: 15px;
+        width: calc(100% - 30px);
     }
 
     .mail {
         padding: 15px;
+        align-items: center;
     }
 
     .mail-window {
         padding: 15px;
+        margin: 0 auto;
     }
 
     .envelopes {
-        min-height: 200px;
+        min-height: 220px;
     }
 
     .envelope {
@@ -946,22 +960,19 @@ body {
     .envelope3,
     .envelope5,
     .envelope7,
+    .envelope9,
     .envelope10 {
         display: none;
     }
 
-    .envelope6,
-    .envelope8 {
-        left: 40%;
-    }
+    .envelope1  { top: 5%;  left: 5%;  }
+    .envelope2  { top: 5%;  left: 55%; }
+    .envelope4  { top: 55%; left: 55%; }
+    .envelope6  { top: 55%; left: 5%;  }
+    .envelope8  { top: 30%; left: 30%; }
 
     .sent-title {
         min-height: 60px;
-    }
-
-    .modal-content {
-        margin: 10px auto;
-        width: calc(100% - 20px);
     }
 
     .modal input,
