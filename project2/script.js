@@ -11,27 +11,13 @@ const ctx = canvas.getContext('2d');
 let W = canvas.width  = window.innerWidth;
 let H = canvas.height = window.innerHeight;
 
-let resizeTimer = null;
-let lastW = W;
-
 window.addEventListener('resize', () => {
-    const newW = window.innerWidth;
-    const newH = window.innerHeight;
-
-    // Ignore height-only changes — these are caused by the mobile browser
-    // toolbar collapsing/expanding during scroll, not a real layout change
-    if (newW === lastW && Math.abs(newH - H) < 150) return;
-
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-        lastW = newW;
-        W = canvas.width = newW;
-        H = canvas.height = newH;
-        gradientCache = null;
-        createPieces();
-        create2019Text();
-        createMessageText();
-    }, 200);
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    gradientCache = null; 
+    createPieces();
+    create2019Text();
+    createMessageText();
 });
 
 
@@ -448,23 +434,23 @@ function createMessageText() {
     messageParticles = [];
 
     const lines    = ["The ocean doesn't forget", "about what we throw away."];
-    const fontSize = Math.max(28, Math.min(W * 0.075, 72));
+    const fontSize = Math.max(32, Math.min(W * 0.085, 82));
     const lineH    = fontSize * 1.45;
     const startY   = H * 0.5 - lineH; // centre both lines on screen
 
     lines.forEach((line, lineIndex) => {
-        const positions = sampleTextPixels(line, `900 ${fontSize}px Arial, sans-serif`, 2000, 1, 80);
+        const positions = sampleTextPixels(line, `900 ${fontSize}px Arial, sans-serif`, 4000, 1, 60);
         const lineY     = startY + lineIndex * lineH;
 
         for (const [px, py] of positions) {
             messageParticles.push({
                 ...makeParticle(
-                    px + (Math.random() - 0.5) * 2,
-                    lineY + py + (Math.random() - 0.5) * 2,
-                    4, 2.2, 2, 0.015
+                    px + (Math.random() - 0.5) * 1,
+                    lineY + py + (Math.random() - 0.5) * 1,
+                    4, 0.8, 1.2, 0.008
                 ),
-                ax:       0.8 + Math.random() * 0.3, // override ax/ay for tighter look
-                ay:       0.8 + Math.random() * 0.3,
+                ax:       0.9 + Math.random() * 0.2,
+                ay:       0.9 + Math.random() * 0.2,
                 // stagger each particle's reveal so the text assembles gradually
                 revealAt: 0.55 + Math.random() * 0.45,
             });
@@ -530,18 +516,17 @@ function updateSink(scroll) {
 // MAIN ANIMATION LOOP — runs 60 times per second via requestAnimationFrame
 // =============================================================================
 
-// Cache the instruction and mass label elements so we don't look them up every frame
+// Cache the instruction element so we don't look it up every frame
 const instructionEl = document.querySelector('.instruction');
-const massEl = document.getElementById('massLabel');
 
 function draw() {
     const scroll = getScroll();
     const time   = Date.now();  // milliseconds since page load, used for animation timing
     const sink   = updateSink(scroll);
 
-    // Update the "X tons" counter in the corner only when the value changes
-    const newMass = Math.round(scroll * totalTons).toLocaleString() + ' tons';
-    if (massEl.innerText !== newMass) massEl.innerText = newMass;
+    // Update the "X tons" counter in the corner
+    document.getElementById('massLabel').innerText =
+        Math.round(scroll * totalTons).toLocaleString() + ' tons';
 
     // Fade the "↓ scroll down" hint out in the first 15% of scroll
     if (instructionEl) instructionEl.style.opacity = Math.max(0, 1 - scroll / 0.15);
