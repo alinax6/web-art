@@ -19,27 +19,28 @@ body {
 }
 
 .sidebar {
-    width: 200px;
+    width: 220px;
     background-color: #1c1c1c;
     border-right: 1px solid #2a2d34;
-    padding: 20px;
+    padding: 40px 36px;
     flex-shrink: 0;
 }
 
 .sidebar h3 {
     margin-top: 0;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     letter-spacing: 2px;
     text-transform: uppercase;
-    font-size: 14px;
+    font-size: 20px;
 }
 
 .folder {
     display: block;
-    margin-bottom: 14px;
+    margin-bottom: 18px;
     color: #868484;
     text-decoration: none;
     transition: 0.3s;
+    font-size: 18px;
 }
 
 .folder:hover {
@@ -416,18 +417,16 @@ body {
     padding: clamp(20px, 5vw, 60px);
     z-index: 1000;
     overflow-y: auto;
-    align-items: center;
-    justify-content: center;
 }
 
 .mail:target {
-    display: flex;
+    display: block;
 }
 
 .mail-window {
     max-width: 700px;
     width: 100%;
-    margin: 0 auto;
+    margin: auto;
     border: 1px solid #3f3e3e;
     padding: clamp(20px, 4vw, 40px);
     position: relative;
